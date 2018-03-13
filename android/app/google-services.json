@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1005734306435",
+    "firebase_url": "https://pmo-itb.firebaseio.com",
+    "project_id": "pmo-itb",
+    "storage_bucket": "pmo-itb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1005734306435:android:68a5d67780092460",
+        "android_client_info": {
+          "package_name": "com.example.ppl.pmotrainingapps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1005734306435-st1g1nh6gbb0agrsb10fp0g3fpvj6a30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoR_H97XaJ_mmZAMmQu_1aTkjmFaGxQxQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
