@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ppl.pmotrainingapps.LoginActivity">
+
+
+    <ImageView
+        android:id="@+id/logoitb"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/logoitb"/>
+
+    <TextView
+        android:id="@+id/namaPanjangPMO"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logoitb"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:text="@string/upt_pengembangan_manusia_dan_organisasi" />
+    <TextView
+        android:id="@+id/singkatan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/namaPanjangPMO"
+        android:text="@string/pmo_itb"
+
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/space1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/singkatan" />
+    <TextView
+        android:id="@+id/space2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/space1" />
+    <TextView
+        android:id="@+id/nama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/space2"
+        android:textSize="20sp"
+        android:layout_alignParentLeft="true"
+
+        android:text="  Nama:" />
+    <TextView
+        android:id="@+id/space3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/nama" />
+    <TextView
+        android:id="@+id/NIP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/space3"
+        android:textSize="20sp"
+        android:text="  NIP/NoPeg: " />
+
+    <EditText
+        android:id="@+id/isianNama"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/nama"
+        android:layout_toEndOf="@+id/nama"
+        android:layout_toRightOf="@+id/nama"/>
+
+    <EditText
+        android:id="@+id/isianNIP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/NIP"
+        android:layout_toEndOf="@+id/NIP"
+        android:layout_toRightOf="@+id/NIP" />
+
+    <TextView
+        android:id="@+id/space4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/NIP" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/space4"
+        android:layout_gravity="center"
+        android:text="Masuk"/>
+</RelativeLayout>
