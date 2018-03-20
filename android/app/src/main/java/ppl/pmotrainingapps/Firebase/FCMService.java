@@ -1,4 +1,4 @@
-package com.example.ppl.pmotrainingapps;
+package ppl.pmotrainingapps.Firebase;
 
 import android.util.Log;
 

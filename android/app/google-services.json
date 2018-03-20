@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1005734306435:android:68a5d67780092460",
         "android_client_info": {
-          "package_name": "com.example.ppl.pmotrainingapps"
+          "package_name": "ppl.pmotrainingapps"
         }
       },
       "oauth_client": [
