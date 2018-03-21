@@ -3,4 +3,11 @@
     <string name="upt_pengembangan_manusia_dan_organisasi">UPT Pengembangan Manusia dan Organisasi</string>
     <string name="pmo_itb">PMO ITB</string>
     <string name="nama">  Nama:</string>
+    <string name="Quote_Content">Someone I know recently combined Maple Syrup &amp; buttered Popcorn thinking it would taste like caramel popcorn. It didn’t and they don’t recommend anyone else do it either. When I was little I had a car door slammed shut on my hand. I still remember it quite vividly.</string>
+    <string name="hello_blank_fragment">Hello Dunia</string>
+    <string name="tab_label1">Home</string>
+    <string name="tab_label2">Info</string>
+    <string name="tab_label3">Kalender</string>
+    <string name="tab_label4">Materi</string>
+    <string name="header_pengumuman">Pengumuman Penting:</string>
 </resources>
