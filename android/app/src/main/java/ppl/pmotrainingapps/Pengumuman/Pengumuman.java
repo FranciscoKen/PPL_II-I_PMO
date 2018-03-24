@@ -7,10 +7,14 @@ package ppl.pmotrainingapps.Pengumuman;
 public class Pengumuman {
     private String title;
     private String details;
+    private int id;
 
-    public Pengumuman(String title, String details) {
+
+
+    public Pengumuman(int id, String title, String details) {
         this.title = title;
         this.details = details;
+        this.id = id;
     }
 
     public String getTitle() {
@@ -24,7 +28,13 @@ public class Pengumuman {
     public String getDetails() {
         return details;
     }
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
     public void setDetails(String details) {
         this.details = details;
     }

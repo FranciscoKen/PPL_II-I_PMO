@@ -7,7 +7,7 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:id="@+id/nestedscroll"
         >
 
         <RelativeLayout
@@ -35,6 +35,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="40dp"
+                    android:textColor="@color/colorText"
                     android:text="@string/Quote_Content" />
 
             </RelativeLayout>
@@ -48,8 +49,9 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/header_pengumuman"
                 android:textAlignment="center"
-                android:textSize="25dp"
-                android:textStyle="bold" />
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorHeaderText"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
