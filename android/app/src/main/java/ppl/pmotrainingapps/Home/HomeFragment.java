@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -40,6 +41,7 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     private RecyclerView recyclerView;
+    private NestedScrollView nestedScrollView;
     private AdapterPengumuman adapter;
     private List<Pengumuman> pengumumanList;
 
@@ -82,7 +84,9 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        
+        nestedScrollView = (NestedScrollView) view.findViewById(R.id.nestedscroll);
+        recyclerView.setFocusable(false);
+        nestedScrollView.requestFocus();
         pengumumanList = new ArrayList<>();
         adapter = new AdapterPengumuman(getContext(), pengumumanList);
 
@@ -93,6 +97,8 @@ public class HomeFragment extends Fragment {
         recyclerView.setNestedScrollingEnabled(false);
         Glide.with(getContext()).load(R.drawable.ppl_quotes).into((ImageView) view.findViewById(R.id.quotes_frame));
         preparePengumuman();
+
+
         return view;
     }
 
@@ -101,31 +107,31 @@ public class HomeFragment extends Fragment {
     private void preparePengumuman() {
 
 
-        Pengumuman a = new Pengumuman("Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
+        Pengumuman a = new Pengumuman(1, "Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
         pengumumanList.add(a);
 
-        a = new Pengumuman("Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
+        a = new Pengumuman(2, "Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
         pengumumanList.add(a);
 
-        a = new Pengumuman("Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
+        a = new Pengumuman(3, "Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
         pengumumanList.add(a);
 
-        a = new Pengumuman("Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
+        a = new Pengumuman(4, "Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
         pengumumanList.add(a);
 
-        a = new Pengumuman("Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
+        a = new Pengumuman(5, "Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
         pengumumanList.add(a);
 
-        a = new Pengumuman("Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
+        a = new Pengumuman(6, "Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
         pengumumanList.add(a);
 
-        a = new Pengumuman("Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
+        a = new Pengumuman(7, "Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
         pengumumanList.add(a);
         
-        a = new Pengumuman("Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
+        a = new Pengumuman(8, "Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
         pengumumanList.add(a);
 
-        a = new Pengumuman("Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
+        a = new Pengumuman(9, "Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
         pengumumanList.add(a);
 
         adapter.notifyDataSetChanged();
