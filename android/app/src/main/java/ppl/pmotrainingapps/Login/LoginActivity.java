@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import ppl.pmotrainingapps.Main.MainActivity;
 import ppl.pmotrainingapps.R;
 
@@ -17,7 +19,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        // titip buat debugging
+        FirebaseMessaging.getInstance().subscribeToTopic("all");
         Button buttonLogin = (Button) findViewById(R.id.buttonLogin);
         final EditText editTextNama = (EditText) findViewById(R.id.isianNama);
         final EditText editTextNIP = (EditText) findViewById(R.id.isianNIP);
