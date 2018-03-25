@@ -9,6 +9,9 @@ import android.widget.TextView;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 
+import ppl.pmotrainingapps.Login.LoginActivity;
+import ppl.pmotrainingapps.R;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -26,8 +29,9 @@ public class MainActivity extends AppCompatActivity {
         }else{
             String nama = intent.getStringExtra("nama");
             String NIP = intent.getStringExtra("NIP");
-            TextView textView = (TextView) findViewById(R.id.textMain);
-            textView.setText("hai "+nama+" berNIP: "+NIP);
+            //textmain tidak ada
+//            TextView textView = (TextView) findViewById(R.id.textMain);
+//            textView.setText("hai "+nama+" berNIP: "+NIP);
             Log.d("terlihat", "tertulisNama: "+nama+" berNIP: "+NIP);
         }
 

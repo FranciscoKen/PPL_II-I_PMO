@@ -10,6 +10,8 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import ppl.pmotrainingapps.R;
+
 /**
  * Created by Arya Pradipta on 13/03/2018.
  */
