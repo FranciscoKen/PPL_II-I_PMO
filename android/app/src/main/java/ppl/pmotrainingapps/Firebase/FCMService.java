@@ -3,7 +3,9 @@ package ppl.pmotrainingapps.Firebase;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
@@ -30,16 +32,21 @@ public class FCMService extends FirebaseMessagingService {
         }
 
         if (remoteMessage.getNotification() != null) {
-            Log.d(TAG, "Message Notification Body: " +
-                    remoteMessage.getNotification().getBody());
-
+            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            String title = remoteMessage.getNotification().getTitle();
+            String body = remoteMessage.getNotification().getBody();
+            String click_action = remoteMessage.getNotification().getClickAction();
+            Intent intent = new Intent(click_action);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
 
 // build notification
 // the addAction re-use the same intent to keep the example short
             Notification n  = new Notification.Builder(this)
-                    .setContentTitle("New mail from " + "test@gmail.com")
-                    .setContentText("Subject")
+                    .setContentTitle(title)
+                    .setContentText(body)
                     .setSmallIcon(R.drawable.logoitb)
+                    .setContentIntent(pendingIntent)
                     .build();
 
 
