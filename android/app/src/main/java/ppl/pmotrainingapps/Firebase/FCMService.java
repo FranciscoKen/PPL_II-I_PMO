@@ -28,7 +28,7 @@ public class FCMService extends FirebaseMessagingService {
         // message, here is where that should be initiated.
 
         if (remoteMessage.getData().size() > 0) {
-            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+            Log.d(TAG, "Message data payload: " + remoteMessage.getData().get("id"));
         }
 
         if (remoteMessage.getNotification() != null) {
@@ -37,6 +37,7 @@ public class FCMService extends FirebaseMessagingService {
             String body = remoteMessage.getNotification().getBody();
             String click_action = remoteMessage.getNotification().getClickAction();
             Intent intent = new Intent(click_action);
+            intent.putExtra("id",remoteMessage.getData().get("id"));
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
 
