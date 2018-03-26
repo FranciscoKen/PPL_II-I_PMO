@@ -10,11 +10,17 @@ import android.widget.EditText;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+
+import java.security.spec.ECField;
+
 import ppl.pmotrainingapps.Main.MainActivity;
 import ppl.pmotrainingapps.R;
 
 public class LoginActivity extends AppCompatActivity {
-
+    public static JSONArray hasil = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,12 +32,63 @@ public class LoginActivity extends AppCompatActivity {
         final EditText editTextNIP = (EditText) findViewById(R.id.isianNIP);
         buttonLogin.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                Log.v("test", "nama: "+editTextNama.getText().toString()+" NIP: "+editTextNIP.getText().toString());
-                Intent main = new Intent(getApplicationContext(), MainActivity.class);
-                main.putExtra("nama", editTextNama.getText().toString());
-                main.putExtra("NIP",editTextNIP.getText().toString());
-                main.putExtra("statusLogin", "success");
-                startActivity(main);
+                String namaInput = editTextNama.getText().toString();
+                String NIPInput = editTextNIP.getText().toString();
+                Log.v("test", "nama: "+namaInput+" NIP: "+NIPInput);
+                // kirim intent ke main klo misal login berhasil..
+                // klo ga..kembali ke login
+                Intent getUser = new Intent(getApplicationContext(), UserGetterService.class);
+                getUser.putExtra("url", "http://pplk2a.if.itb.ac.id/ppl/getAllUser.php");
+                startService(getUser);
+
+                if(hasil!=null) {
+                    Log.d("testing", "hasil yang didapat:"+ hasil.get(0).toString());
+                    boolean berhasilLogin = false;
+                    for(int iterator = 0; iterator < hasil.size(); iterator++) {
+                        String hasilFetch = hasil.get(iterator).toString();
+
+                        try{
+                            JSONObject json = (JSONObject) new JSONParser().parse(hasilFetch);
+
+//                        Log.d("testing final", "json: "+json);
+//                        JSONObject username = (JSONObject) json.get("username");
+//                        JSONObject password = (JSONObject) json.get("passwd");
+                            String usernameString = (String)json.get("username");
+                            String passwordString = (String)json.get("passwd");
+                            if((usernameString.equals(namaInput)) && (passwordString.equals(NIPInput))){
+                                Log.d("hore", "berhasil login");
+                                berhasilLogin = true;
+                                Intent main = new Intent(getApplicationContext(), MainActivity.class);
+                                main.putExtra("nama", editTextNama.getText().toString());
+                                main.putExtra("NIP",editTextNIP.getText().toString());
+                                main.putExtra("statusLogin", "success");
+                                startActivity(main);
+
+                            }
+//                        String passwordString = password.toString();
+                            Log.d("testing final", "username: "+usernameString+" password: "+passwordString);
+                        }catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if(!berhasilLogin) {
+                        Intent login = new Intent(getApplicationContext(), LoginActivity.class);
+                        login.putExtra("nama", editTextNama.getText().toString());
+                        startActivity(login);
+                        finish();
+                    }
+
+                }
+
+//                Intent login = new Intent(getApplicationContext(), LoginActivity.class);
+//                login.putExtra("nama", editTextNama.getText().toString());
+//                startActivity(login);
+//                finish();
+//                Intent main = new Intent(getApplicationContext(), MainActivity.class);
+//                main.putExtra("nama", editTextNama.getText().toString());
+//                main.putExtra("NIP",editTextNIP.getText().toString());
+//                main.putExtra("statusLogin", "success");
+//                startActivity(main);
             }
         });
     }

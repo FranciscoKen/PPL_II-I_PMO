@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ppl.pmotrainingapps">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logoitb"
@@ -19,11 +21,13 @@
         <activity android:name=".Main.MainActivity">
             <intent-filter>
                 <action android:name="mainActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <service android:name=".Firebase.FCMService"
+        <service
+            android:name=".Firebase.FCMService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -36,7 +40,11 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".content.Content"></activity>
+        <activity android:name=".content.Content" />
+
+        <service
+            android:name=".Login.UserGetterService"
+            android:exported="false"></service>
     </application>
 
 </manifest>
