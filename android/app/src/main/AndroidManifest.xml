@@ -45,6 +45,9 @@
         <service
             android:name=".Login.UserGetterService"
             android:exported="false"></service>
+        <service
+            android:name=".Home.QuoteGetterService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

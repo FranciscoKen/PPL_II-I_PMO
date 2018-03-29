@@ -1,22 +1,28 @@
 package ppl.pmotrainingapps.Home;
 
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import org.json.simple.JSONArray;
+import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +50,10 @@ public class HomeFragment extends Fragment {
     private NestedScrollView nestedScrollView;
     private AdapterPengumuman adapter;
     private List<Pengumuman> pengumumanList;
+    private TextView quote_content;
+    private TextView quote_author;;
+
+    public static JSONObject hasilQuote = null;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -75,11 +85,12 @@ public class HomeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
@@ -90,21 +101,56 @@ public class HomeFragment extends Fragment {
         pengumumanList = new ArrayList<>();
         adapter = new AdapterPengumuman(getContext(), pengumumanList);
 
+        quote_content = (TextView) view.findViewById(R.id.quotes_content);
+        quote_author = (TextView) view.findViewById(R.id.quotes_author);
+
+        //Initialize quote content
+        Intent getQuote = new Intent(getContext(), QuoteGetterService.class);
+        getQuote.putExtra("url", "http://pplk2a.if.itb.ac.id/ppl/getAllQuotes.php");
+        this.getContext().startService(getQuote);
+
+        if (hasilQuote != null) {
+            //Log.d("testing", "hasil yang didapat:" + hasilQuote.get(0).toString());
+//            for (int iterator = 0; iterator < hasilQuote.size(); iterator++) {
+//                String hasilFetch = hasilQuote.get(iterator).toString();
+//                try {
+//                    JSONObject json = (JSONObject) new JSONParser().parse(hasilFetch);
+//                    String quoteString = (String) json.get("quote");
+//                    String authorString = (String) json.get("author");
+//
+//                    Log.d("testing final", "username: " + quoteString + " password: " + authorString);
+//                    quote_content.setText(quoteString);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+            try {
+                String quoteString = (String) hasilQuote.get("quote");
+                String authorString = (String) hasilQuote.get("author");
+
+                Log.d("testing final", "username: " + quoteString + " password: " + authorString);
+                quote_content.setText(quoteString);
+                quote_author.setText(authorString);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
         Glide.with(getContext()).load(R.drawable.ppl_quotes).into((ImageView) view.findViewById(R.id.quotes_frame));
-        preparePengumuman();
+        preparePengumuman(inflater,container);
 
 
         return view;
     }
 
-
-
-    private void preparePengumuman() {
+    private void preparePengumuman (LayoutInflater inflater, ViewGroup container) {
 
 
         Pengumuman a = new Pengumuman(1, "Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
@@ -127,7 +173,7 @@ public class HomeFragment extends Fragment {
 
         a = new Pengumuman(7, "Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
         pengumumanList.add(a);
-        
+
         a = new Pengumuman(8, "Pelatihan Kepemimpinan", "Minggu, 3 Maret 2018");
         pengumumanList.add(a);
 
@@ -178,7 +224,7 @@ public class HomeFragment extends Fragment {
     /**
      * Converting dp to pixel
      */
-    private int dpToPx(int dp) {
+    private int dpToPx ( int dp){
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
