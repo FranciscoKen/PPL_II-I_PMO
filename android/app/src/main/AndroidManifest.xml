@@ -44,6 +44,9 @@
 
         <service
             android:name=".Login.UserGetterService"
+            android:exported="false" />
+        <service
+            android:name=".Home.PengumumanGetterService"
             android:exported="false"></service>
     </application>
 

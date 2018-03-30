@@ -20,7 +20,7 @@
 
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/judul"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="30dp"
@@ -31,7 +31,7 @@
                 android:text="Pelatihan Presentasi"/>
 
             <TextView
-                android:id="@+id/details"
+                android:id="@+id/tanggal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title"

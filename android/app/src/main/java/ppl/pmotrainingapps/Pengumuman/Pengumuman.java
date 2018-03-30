@@ -5,37 +5,71 @@ package ppl.pmotrainingapps.Pengumuman;
  */
 
 public class Pengumuman {
-    private String title;
-    private String details;
-    private int id;
 
+    private int id_pengumuman;
+    private int id_kegiatan;
+    private String judul;
+    private String tanggal;
+    private String konten_teks;
+    private String konten_gambar;
 
-
-    public Pengumuman(int id, String title, String details) {
-        this.title = title;
-        this.details = details;
-        this.id = id;
+    public Pengumuman(int id_pengumuman, int id_kegiatan, String judul, String tanggal, String konten_teks, String konten_gambar) {
+        this.judul = judul;
+        this.konten_teks = konten_teks;
+        this.konten_gambar = konten_gambar;
+        this.tanggal = tanggal;
+        this.id_pengumuman = id_pengumuman;
+        this.id_kegiatan = id_kegiatan;
     }
 
-    public String getTitle() {
-        return title;
+    public int getId_pengumuman() {
+        return id_pengumuman;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setId_pengumuman(int id_pengumuman) {
+        this.id_pengumuman = id_pengumuman;
     }
 
-    public String getDetails() {
-        return details;
-    }
-    public int getId() {
-        return id;
+    public int getId_kegiatan() {
+        return id_kegiatan;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId_kegiatan(int id_kegiatan) {
+        this.id_kegiatan = id_kegiatan;
     }
-    public void setDetails(String details) {
-        this.details = details;
+
+    public String getJudul() {
+        return judul;
     }
+
+    public void setJudul(String judul) {
+        this.judul = judul;
+    }
+
+    public String getTanggal() {
+        return tanggal;
+    }
+
+    public void setTanggal(String tanggal) {
+        this.tanggal = tanggal;
+    }
+
+    public String getKonten_teks() {
+        return konten_teks;
+    }
+
+    public void setKonten_teks(String konten_teks) {
+        this.konten_teks = konten_teks;
+    }
+
+    public String getKonten_gambar() {
+        return konten_gambar;
+    }
+
+    public void setKonten_gambar(String konten_gambar) {
+        this.konten_gambar = konten_gambar;
+    }
+
+
+
 }
