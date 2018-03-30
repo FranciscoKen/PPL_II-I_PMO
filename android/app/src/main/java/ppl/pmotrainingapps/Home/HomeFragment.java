@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -45,6 +45,10 @@ public class HomeFragment extends Fragment {
     private NestedScrollView nestedScrollView;
     private AdapterPengumuman adapter;
     private List<Pengumuman> pengumumanList;
+    private TextView quote_content;
+    private TextView quote_author;;
+
+    public static JSONObject hasilQuote = null;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -71,7 +75,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
@@ -81,6 +85,43 @@ public class HomeFragment extends Fragment {
         nestedScrollView.requestFocus();
         pengumumanList = new ArrayList<>();
         adapter = new AdapterPengumuman(getContext(), pengumumanList);
+
+        quote_content = (TextView) view.findViewById(R.id.quotes_content);
+        quote_author = (TextView) view.findViewById(R.id.quotes_author);
+
+        //Initialize quote content
+        Intent getQuote = new Intent(getContext(), QuoteGetterService.class);
+        getQuote.putExtra("url", "http://pplk2a.if.itb.ac.id/ppl/getAllQuotes.php");
+        this.getContext().startService(getQuote);
+
+        if (hasilQuote != null) {
+            //Log.d("testing", "hasil yang didapat:" + hasilQuote.get(0).toString());
+//            for (int iterator = 0; iterator < hasilQuote.size(); iterator++) {
+//                String hasilFetch = hasilQuote.get(iterator).toString();
+//                try {
+//                    JSONObject json = (JSONObject) new JSONParser().parse(hasilFetch);
+//                    String quoteString = (String) json.get("quote");
+//                    String authorString = (String) json.get("author");
+//
+//                    Log.d("testing final", "username: " + quoteString + " password: " + authorString);
+//                    quote_content.setText(quoteString);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+            try {
+                String quoteString = (String) hasilQuote.get("quote");
+                String authorString = (String) hasilQuote.get("author");
+
+                Log.d("testing final", "username: " + quoteString + " password: " + authorString);
+                quote_content.setText(quoteString);
+                quote_author.setText(authorString);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -174,7 +215,7 @@ public class HomeFragment extends Fragment {
     /**
      * Converting dp to pixel
      */
-    private int dpToPx(int dp) {
+    private int dpToPx ( int dp){
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }

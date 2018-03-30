@@ -48,6 +48,9 @@
         <service
             android:name=".Home.PengumumanGetterService"
             android:exported="false"></service>
+        <service
+            android:name=".Home.QuoteGetterService"
+            android:exported="false"></service>
     </application>
 
 </manifest>
