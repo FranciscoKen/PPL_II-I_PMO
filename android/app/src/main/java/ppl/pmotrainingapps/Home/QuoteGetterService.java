@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 
@@ -94,7 +94,7 @@ public class QuoteGetterService extends IntentService {
                 //JSONParser jsonParser = new JSONParser();
                 //JSONArray jsonArray = (JSONArray) jsonParser.parse(new InputStreamReader(responseBody, "UTF-8"));
                 //JSONObject jsonObject = new InputStreamReader(responseBody, "UTF-8");
-                JSONObject jsonObject = new JSONObject(result.toString());
+                JSONObject jsonObject = (JSONObject) new JSONParser().parse(result.toString());
 
                 Log.d("hasil", "hasil: "+jsonObject.toString());
                 HomeFragment.hasilQuote = jsonObject;

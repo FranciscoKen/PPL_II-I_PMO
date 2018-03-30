@@ -129,6 +129,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
         Glide.with(getContext()).load(R.drawable.ppl_quotes).into((ImageView) view.findViewById(R.id.quotes_frame));
+        
         preparePengumuman();
 
 
