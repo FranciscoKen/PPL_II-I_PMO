@@ -98,7 +98,7 @@ public class QuoteGetterService extends IntentService {
 
                 Log.d("hasil", "hasil: "+jsonObject.toString());
                 HomeFragment.hasilQuote = jsonObject;
-
+                HomeFragment.instance.setQuote();
             }else{
                 Log.d("test", "connection failed");
             }

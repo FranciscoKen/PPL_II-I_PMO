@@ -41,6 +41,7 @@ import ppl.pmotrainingapps.R;
  */
 public class HomeFragment extends Fragment {
     public static JSONArray pengumuman = null;
+    public static HomeFragment instance = null;
     private RecyclerView recyclerView;
     private NestedScrollView nestedScrollView;
     private AdapterPengumuman adapter;
@@ -65,6 +66,7 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
+        instance = fragment;
         return fragment;
     }
 
@@ -83,33 +85,34 @@ public class HomeFragment extends Fragment {
         nestedScrollView = (NestedScrollView) view.findViewById(R.id.nestedscroll);
         recyclerView.setFocusable(false);
         nestedScrollView.requestFocus();
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setNestedScrollingEnabled(false);
+
         pengumumanList = new ArrayList<>();
         adapter = new AdapterPengumuman(getContext(), pengumumanList);
-
         quote_content = (TextView) view.findViewById(R.id.quotes_content);
         quote_author = (TextView) view.findViewById(R.id.quotes_author);
 
+        Glide.with(getContext()).load(R.drawable.ppl_quotes).into((ImageView) view.findViewById(R.id.quotes_frame));
+
+        prepareQuotes();
+        preparePengumuman();
+
+        return view;
+    }
+
+    private void prepareQuotes(){
         //Initialize quote content
         Intent getQuote = new Intent(getContext(), QuoteGetterService.class);
         getQuote.putExtra("url", "http://pplk2a.if.itb.ac.id/ppl/getAllQuotes.php");
         this.getContext().startService(getQuote);
+    }
 
+    public  void setQuote(){
         if (hasilQuote != null) {
-            //Log.d("testing", "hasil yang didapat:" + hasilQuote.get(0).toString());
-//            for (int iterator = 0; iterator < hasilQuote.size(); iterator++) {
-//                String hasilFetch = hasilQuote.get(iterator).toString();
-//                try {
-//                    JSONObject json = (JSONObject) new JSONParser().parse(hasilFetch);
-//                    String quoteString = (String) json.get("quote");
-//                    String authorString = (String) json.get("author");
-//
-//                    Log.d("testing final", "username: " + quoteString + " password: " + authorString);
-//                    quote_content.setText(quoteString);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
             try {
                 String quoteString = (String) hasilQuote.get("quote");
                 String authorString = (String) hasilQuote.get("author");
@@ -122,27 +125,14 @@ public class HomeFragment extends Fragment {
             }
 
         }
-
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setNestedScrollingEnabled(false);
-        Glide.with(getContext()).load(R.drawable.ppl_quotes).into((ImageView) view.findViewById(R.id.quotes_frame));
-        
-        preparePengumuman();
-
-
-        return view;
     }
-
-
-
     private void preparePengumuman() {
         Intent getPengumuman = new Intent(getContext(), PengumumanGetterService.class);
         getPengumuman.putExtra("url", "http://pplk2a.if.itb.ac.id/ppl/getAllPengumuman.php");
         getContext().startService(getPengumuman);
 
+    }
+    public void setPengumuman(){
         if(pengumuman != null) {
             Log.d("testing", "hasil yang didapat:"+ pengumuman.get(0).toString());
             boolean berhasilLogin = false;
@@ -168,13 +158,8 @@ public class HomeFragment extends Fragment {
             }
 
         }
-
-
-
-
         adapter.notifyDataSetChanged();
     }
-
     /**
      * RecyclerView item decoration - give equal margin around grid item
      */

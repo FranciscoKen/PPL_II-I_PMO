@@ -49,7 +49,7 @@ public class PengumumanGetterService extends IntentService {
                 JSONArray jsonArray = (JSONArray) jsonParser.parse(new InputStreamReader(responseBody, "UTF-8"));
                 Log.d("hasil", "hasil: "+jsonArray.toString());
                 HomeFragment.pengumuman = jsonArray;
-
+                HomeFragment.instance.setPengumuman();
             }else{
                 Log.d("test", "connection failed");
             }
