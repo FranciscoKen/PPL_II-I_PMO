@@ -2,9 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ppl.pmotrainingapps">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logoitb"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -16,9 +18,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main.MainActivity" />
+        <activity android:name=".Main.MainActivity">
+            <intent-filter>
+                <action android:name="mainActivity" />
 
-        <service android:name=".Firebase.FCMService">
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".Firebase.FCMService"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -29,7 +40,17 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".content.Content"></activity>
+        <activity android:name=".content.Content" />
+
+        <service
+            android:name=".Login.UserGetterService"
+            android:exported="false" />
+        <service
+            android:name=".Home.PengumumanGetterService"
+            android:exported="false"></service>
+        <service
+            android:name=".Home.QuoteGetterService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

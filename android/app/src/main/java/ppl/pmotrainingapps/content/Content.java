@@ -28,8 +28,12 @@ public class Content extends AppCompatActivity {
         Glide.with(this).load(R.drawable.header1).into(headerImage);
         Bundle b = getIntent().getExtras();
         int value = -1; // or other values
-        if(b != null)
-            value = b.getInt("idpengumuman");
-        contentText.setText("id pengumuman: "+value+ ", " + contentText.getText());
+        if(b != null){
+            contentText.setText(b.getString("konten_teks"));
+            headerText.setText(b.getString("judul"));
+            dateText.setText(b.getString("tanggal"));
+
+        }
+
     }
 }

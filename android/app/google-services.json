@@ -10,6 +10,50 @@
       "client_info": {
         "mobilesdk_app_id": "1:1005734306435:android:68a5d67780092460",
         "android_client_info": {
+          "package_name": "com.example.ppl.pmotrainingapps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1005734306435-rqbsffd5oaq5ngedl7cb3hqoruo5g8eq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ppl.pmotrainingapps",
+            "certificate_hash": "4d350852b1a5f7ec95745c4ce4f11bc0b072b33d"
+          }
+        },
+        {
+          "client_id": "1005734306435-st1g1nh6gbb0agrsb10fp0g3fpvj6a30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoR_H97XaJ_mmZAMmQu_1aTkjmFaGxQxQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1005734306435-st1g1nh6gbb0agrsb10fp0g3fpvj6a30.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1005734306435:android:794b5eb5ece39fd5",
+        "android_client_info": {
           "package_name": "ppl.pmotrainingapps"
         }
       },
