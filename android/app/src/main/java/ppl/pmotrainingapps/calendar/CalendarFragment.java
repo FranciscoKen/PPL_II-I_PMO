@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,7 @@ import java.util.Locale;
 
 import ppl.pmotrainingapps.R;
 
-public class CalendarFragment  extends Fragment {
+public class CalendarFragment extends Fragment {
     private Toolbar toolbar;
     CompactCalendarView compactCalendarView;
 
@@ -31,7 +30,7 @@ public class CalendarFragment  extends Fragment {
     private Calendar currentCalender = Calendar.getInstance(Locale.getDefault());
     private TextView monthHeader;
 
-    public CalendarFragment(){
+    public CalendarFragment() {
 
     }
 
@@ -126,7 +125,7 @@ public class CalendarFragment  extends Fragment {
             public void onDayClick(Date dateClicked) {
 
 
-                Toast.makeText(getActivity(),"Date : " + dateClicked.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Date : " + dateClicked.toString(), Toast.LENGTH_SHORT).show();
 
             }
 
@@ -174,7 +173,7 @@ public class CalendarFragment  extends Fragment {
             }
             currentCalender.add(Calendar.DATE, i);
             setToMidnight(currentCalender);
-            compactCalendarView.addEvent(new Event(Color.argb(255, 255, 255, 255),currentCalender.getTimeInMillis()), false);
+            compactCalendarView.addEvent(new Event(Color.argb(255, 0, 253, 0), currentCalender.getTimeInMillis()), false);
         }
     }
 
