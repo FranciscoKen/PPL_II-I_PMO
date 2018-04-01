@@ -1,7 +1,10 @@
 package ppl.pmotrainingapps.Home;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -40,6 +43,9 @@ import ppl.pmotrainingapps.R;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+
+    private final static String TAG = "HomeFragment";
+
     public static JSONArray pengumuman = null;
     private RecyclerView recyclerView;
     private NestedScrollView nestedScrollView;
@@ -74,6 +80,14 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction(QuoteGetterService.GOTQUOTE);
+//        context.registerReceiver(quoteReceiver, intentFilter);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -94,22 +108,11 @@ public class HomeFragment extends Fragment {
         getQuote.putExtra("url", "http://pplk2a.if.itb.ac.id/ppl/getAllQuotes.php");
         this.getContext().startService(getQuote);
 
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(QuoteGetterService.GOTQUOTE);
+        getActivity().registerReceiver(quoteReceiver, intentFilter);
+
         if (hasilQuote != null) {
-            //Log.d("testing", "hasil yang didapat:" + hasilQuote.get(0).toString());
-//            for (int iterator = 0; iterator < hasilQuote.size(); iterator++) {
-//                String hasilFetch = hasilQuote.get(iterator).toString();
-//                try {
-//                    JSONObject json = (JSONObject) new JSONParser().parse(hasilFetch);
-//                    String quoteString = (String) json.get("quote");
-//                    String authorString = (String) json.get("author");
-//
-//                    Log.d("testing final", "username: " + quoteString + " password: " + authorString);
-//                    quote_content.setText(quoteString);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
             try {
                 String quoteString = (String) hasilQuote.get("quote");
                 String authorString = (String) hasilQuote.get("author");
@@ -121,6 +124,8 @@ public class HomeFragment extends Fragment {
                 e.printStackTrace();
             }
 
+        } else {
+            Log.d(TAG,"nyiahahaha");
         }
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
@@ -220,5 +225,14 @@ public class HomeFragment extends Fragment {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
+
+    private BroadcastReceiver quoteReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String receiveQuoteResult = intent.getExtras().getString("quoteJSON");
+            Log.d(TAG,"SUDAH DITERIMA: "+receiveQuoteResult);
+
+        }
+    };
 
 }
