@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import ppl.pmotrainingapps.BlankFragment;
 import ppl.pmotrainingapps.Home.HomeFragment;
+import ppl.pmotrainingapps.calendar.CalendarFragment;
 
 /**
  * Created by David on 2/4/2018.
@@ -25,7 +26,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new BlankFragment();
             case 2:
-                return new BlankFragment();
+                return new CalendarFragment();
             case 3:
                 return new BlankFragment();
             default:
