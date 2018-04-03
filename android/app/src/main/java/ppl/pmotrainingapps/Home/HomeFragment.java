@@ -155,7 +155,6 @@ public class HomeFragment extends Fragment {
     public void setPengumuman(){
         if(pengumuman != null) {
             Log.d("testing", "hasil yang didapat:"+ pengumuman.get(0).toString());
-            boolean berhasilLogin = false;
             for(int iterator = 0; iterator < pengumuman.size(); iterator++) {
                 String hasilFetch = pengumuman.get(iterator).toString();
 
