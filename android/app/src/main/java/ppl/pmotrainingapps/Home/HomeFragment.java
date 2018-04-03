@@ -1,7 +1,10 @@
 package ppl.pmotrainingapps.Home;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -40,6 +43,9 @@ import ppl.pmotrainingapps.R;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+
+    private final static String TAG = "HomeFragment";
+
     public static JSONArray pengumuman = null;
     public static HomeFragment instance = null;
     private RecyclerView recyclerView;
@@ -73,6 +79,14 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction(QuoteGetterService.GOTQUOTE);
+//        context.registerReceiver(quoteReceiver, intentFilter);
     }
 
     @Override
@@ -112,6 +126,10 @@ public class HomeFragment extends Fragment {
     }
 
     public  void setQuote(){
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(QuoteGetterService.GOTQUOTE);
+        getActivity().registerReceiver(quoteReceiver, intentFilter);
+
         if (hasilQuote != null) {
             try {
                 String quoteString = (String) hasilQuote.get("quote");
@@ -124,6 +142,8 @@ public class HomeFragment extends Fragment {
                 e.printStackTrace();
             }
 
+        } else {
+            Log.d(TAG,"nyiahahaha");
         }
     }
     private void preparePengumuman() {
@@ -205,5 +225,14 @@ public class HomeFragment extends Fragment {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
+
+    private BroadcastReceiver quoteReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String receiveQuoteResult = intent.getExtras().getString("quoteJSON");
+            Log.d(TAG,"SUDAH DITERIMA: "+receiveQuoteResult);
+
+        }
+    };
 
 }

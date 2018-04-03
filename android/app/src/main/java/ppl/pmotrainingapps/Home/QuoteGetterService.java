@@ -21,6 +21,8 @@ import ppl.pmotrainingapps.Home.QuoteGetterService;
 
 public class QuoteGetterService extends IntentService {
 
+    public static final String GOTQUOTE = "com.ppl.pmotrainingapps.Home.GOTQUOTE";
+
     // TODO: Rename actions, choose action names that describe tasks that this
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
     private static final String ACTION_FOO = "ppl.pmotrainingapps.Home.action.FOO";
@@ -98,7 +100,12 @@ public class QuoteGetterService extends IntentService {
 
                 Log.d("hasil", "hasil: "+jsonObject.toString());
                 HomeFragment.hasilQuote = jsonObject;
-                HomeFragment.instance.setQuote();
+                //HomeFragment.instance.setQuote();
+
+                Intent dapetQuote = new Intent(GOTQUOTE);
+                dapetQuote.putExtra("quoteJSON",result.toString());
+
+
             }else{
                 Log.d("test", "connection failed");
             }
