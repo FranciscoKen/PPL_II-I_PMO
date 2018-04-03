@@ -28,6 +28,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
@@ -88,9 +90,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        IntentFilter intentFilter = new IntentFilter();
-//        intentFilter.addAction(QuoteGetterService.GOTQUOTE);
-//        context.registerReceiver(quoteReceiver, intentFilter);
+
     }
 
     @Override
@@ -109,14 +109,7 @@ public class HomeFragment extends Fragment {
         quote_content = (TextView) view.findViewById(R.id.quotes_content);
         quote_author = (TextView) view.findViewById(R.id.quotes_author);
 
-        //Initialize quote content
-        Intent getQuote = new Intent(getContext(), QuoteGetterService.class);
-        getQuote.putExtra("url", "http://pplk2a.if.itb.ac.id/ppl/getAllQuotes.php");
-        this.getContext().startService(getQuote);
 
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(QuoteGetterService.GOTQUOTE);
-        getActivity().registerReceiver(quoteReceiver, intentFilter);
 
         if (hasilQuote != null) {
             try {
@@ -131,7 +124,6 @@ public class HomeFragment extends Fragment {
             }
 
         } else {
-            Log.d(TAG,"nyiahahaha");
         }
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
@@ -140,13 +132,30 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
         Glide.with(getContext()).load(R.drawable.ppl_quotes).into((ImageView) view.findViewById(R.id.quotes_frame));
-        
+        prepareQuotes();
         preparePengumuman();
 
 
         return view;
     }
+    private void prepareQuotes(){
+        new QuoteTask(this).execute();
 
+    }
+    public void setQuotes(){
+        if (hasilQuote != null) {
+            try {
+                String quoteString = (String) hasilQuote.get("quote");
+                String authorString = (String) hasilQuote.get("author");
+
+                quote_content.setText(quoteString);
+                quote_author.setText(authorString);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
     private void preparePengumuman() {
         new PengumumanTask(this).execute();
     }
@@ -154,7 +163,6 @@ public class HomeFragment extends Fragment {
 
     public void setPengumuman(){
         if(pengumuman != null) {
-            Log.d("testing", "hasil yang didapat:"+ pengumuman.get(0).toString());
             for(int iterator = 0; iterator < pengumuman.size(); iterator++) {
                 String hasilFetch = pengumuman.get(iterator).toString();
 
@@ -246,11 +254,9 @@ public class HomeFragment extends Fragment {
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 if (connection.getResponseCode() == 200) {
-                    Log.d("test", "connection success");
                     InputStream responseBody = connection.getInputStream();
                     JSONParser jsonParser = new JSONParser();
                     JSONArray jsonArray = (JSONArray) jsonParser.parse(new InputStreamReader(responseBody, "UTF-8"));
-                    Log.d("hasil", "hasil: " + jsonArray.toString());
                     HomeFragment.pengumuman = jsonArray;
 
                 } else {
@@ -268,5 +274,48 @@ public class HomeFragment extends Fragment {
             activity.setPengumuman();
         }
     }
+    private static class QuoteTask extends AsyncTask<Void, Void, Void> {
 
+        private WeakReference<HomeFragment> activityReference;
+
+        QuoteTask(HomeFragment context) {
+            activityReference = new WeakReference<>(context);
+        }
+
+        protected Void doInBackground(Void... urls) {
+            StringBuilder result = new StringBuilder();
+            try{
+                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllQuotes.php");
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+                if(connection.getResponseCode() == 200) {
+                    //InputStream responseBody = connection.getInputStream();
+                    InputStream responseBody = new BufferedInputStream(connection.getInputStream());
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(responseBody));
+
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+                    JSONObject jsonObject = (JSONObject) new JSONParser().parse(result.toString());
+
+                    HomeFragment.hasilQuote = jsonObject;
+
+
+                }else{
+                    Log.d("test", "connection failed");
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+            // get a reference to the activity if it is still there
+            HomeFragment activity = activityReference.get();
+            activity.setQuotes();
+        }
+    }
 }
