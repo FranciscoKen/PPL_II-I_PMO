@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
@@ -27,6 +28,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -141,13 +147,48 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-
-
     private void preparePengumuman() {
-        Intent getPengumuman = new Intent(getContext(), PengumumanGetterService.class);
-        getPengumuman.putExtra("url", "http://pplk2a.if.itb.ac.id/ppl/getAllPengumuman.php");
-        getContext().startService(getPengumuman);
+        new PengumumanTask(this).execute();
+    }
 
+    private static class PengumumanTask extends AsyncTask<Void, Void, Void> {
+
+        private WeakReference<HomeFragment> activityReference;
+
+        PengumumanTask(HomeFragment context) {
+            activityReference = new WeakReference<>(context);
+        }
+
+        protected Void doInBackground(Void... urls) {
+            try {
+                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllPengumuman.php");
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+                if (connection.getResponseCode() == 200) {
+                    Log.d("test", "connection success");
+                    InputStream responseBody = connection.getInputStream();
+                    JSONParser jsonParser = new JSONParser();
+                    JSONArray jsonArray = (JSONArray) jsonParser.parse(new InputStreamReader(responseBody, "UTF-8"));
+                    Log.d("hasil", "hasil: " + jsonArray.toString());
+                    HomeFragment.pengumuman = jsonArray;
+
+                } else {
+                    Log.d("test", "connection failed");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+            // get a reference to the activity if it is still there
+            HomeFragment activity = activityReference.get();
+            activity.setPengumuman();
+        }
+    }
+
+    public void setPengumuman(){
         if(pengumuman != null) {
             Log.d("testing", "hasil yang didapat:"+ pengumuman.get(0).toString());
             boolean berhasilLogin = false;
@@ -156,16 +197,15 @@ public class HomeFragment extends Fragment {
 
                 try{
                     JSONObject json = (JSONObject) new JSONParser().parse(hasilFetch);
-                    int id_pengumuman = (int) json.get("id_pengumuman");
+                    int id_pengumuman = Integer.parseInt((String) json.get("id_pengumuman"));
                     String judul = (String)json.get("judul");
                     String tanggal = (String)json.get("tanggal");
-                    int id_kegiatan = (int) json.get("kegiatan_id");
-                    String konten_teks = (String)json.get("konten_teks");
-                    String konten_gambar = (String)json.get("konten_gambar");
+                    int id_kegiatan = json.get("kegiatan_id") != null ? Integer.parseInt((String) json.get("kegiatan_id")) : -1;
+                    String konten_teks = json.get("konten_teks") != null ? (String)json.get("konten_teks") : "";
+                    String konten_gambar = json.get("konten_gambar") != null ? (String)json.get("konten_gambar") : "";
 
                     Pengumuman a = new Pengumuman(id_pengumuman, id_kegiatan, judul, tanggal, konten_teks, konten_gambar);
                     pengumumanList.add(a);
-
 
                 }catch (Exception e) {
                     e.printStackTrace();
@@ -173,13 +213,8 @@ public class HomeFragment extends Fragment {
             }
 
         }
-
-
-
-
         adapter.notifyDataSetChanged();
     }
-
     /**
      * RecyclerView item decoration - give equal margin around grid item
      */
