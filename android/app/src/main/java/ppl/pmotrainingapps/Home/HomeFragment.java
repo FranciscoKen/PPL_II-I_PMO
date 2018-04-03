@@ -151,42 +151,6 @@ public class HomeFragment extends Fragment {
         new PengumumanTask(this).execute();
     }
 
-    private static class PengumumanTask extends AsyncTask<Void, Void, Void> {
-
-        private WeakReference<HomeFragment> activityReference;
-
-        PengumumanTask(HomeFragment context) {
-            activityReference = new WeakReference<>(context);
-        }
-
-        protected Void doInBackground(Void... urls) {
-            try {
-                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllPengumuman.php");
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-                if (connection.getResponseCode() == 200) {
-                    Log.d("test", "connection success");
-                    InputStream responseBody = connection.getInputStream();
-                    JSONParser jsonParser = new JSONParser();
-                    JSONArray jsonArray = (JSONArray) jsonParser.parse(new InputStreamReader(responseBody, "UTF-8"));
-                    Log.d("hasil", "hasil: " + jsonArray.toString());
-                    HomeFragment.pengumuman = jsonArray;
-
-                } else {
-                    Log.d("test", "connection failed");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-        @Override
-        protected void onPostExecute(Void result) {
-            // get a reference to the activity if it is still there
-            HomeFragment activity = activityReference.get();
-            activity.setPengumuman();
-        }
-    }
 
     public void setPengumuman(){
         if(pengumuman != null) {
@@ -269,5 +233,41 @@ public class HomeFragment extends Fragment {
 
         }
     };
+    private static class PengumumanTask extends AsyncTask<Void, Void, Void> {
+
+        private WeakReference<HomeFragment> activityReference;
+
+        PengumumanTask(HomeFragment context) {
+            activityReference = new WeakReference<>(context);
+        }
+
+        protected Void doInBackground(Void... urls) {
+            try {
+                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllPengumuman.php");
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+                if (connection.getResponseCode() == 200) {
+                    Log.d("test", "connection success");
+                    InputStream responseBody = connection.getInputStream();
+                    JSONParser jsonParser = new JSONParser();
+                    JSONArray jsonArray = (JSONArray) jsonParser.parse(new InputStreamReader(responseBody, "UTF-8"));
+                    Log.d("hasil", "hasil: " + jsonArray.toString());
+                    HomeFragment.pengumuman = jsonArray;
+
+                } else {
+                    Log.d("test", "connection failed");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+            // get a reference to the activity if it is still there
+            HomeFragment activity = activityReference.get();
+            activity.setPengumuman();
+        }
+    }
 
 }
