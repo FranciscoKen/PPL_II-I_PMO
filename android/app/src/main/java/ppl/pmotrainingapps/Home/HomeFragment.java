@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
     public static JSONObject hasilQuote = null;
 
     public HomeFragment() {
-        // Required empty public constructor
+        instance = this;
     }
 
     /**
@@ -80,7 +80,7 @@ public class HomeFragment extends Fragment {
             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
+        instance = this;
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         nestedScrollView = (NestedScrollView) view.findViewById(R.id.nestedscroll);
         recyclerView.setFocusable(false);
@@ -88,11 +88,11 @@ public class HomeFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        pengumumanList = new ArrayList<>();
+        adapter = new AdapterPengumuman(getContext(), pengumumanList);
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
 
-        pengumumanList = new ArrayList<>();
-        adapter = new AdapterPengumuman(getContext(), pengumumanList);
         quote_content = (TextView) view.findViewById(R.id.quotes_content);
         quote_author = (TextView) view.findViewById(R.id.quotes_author);
 
@@ -141,12 +141,12 @@ public class HomeFragment extends Fragment {
 
                 try{
                     JSONObject json = (JSONObject) new JSONParser().parse(hasilFetch);
-                    int id_pengumuman = (int) json.get("id_pengumuman");
+                    int id_pengumuman = Integer.parseInt((String) json.get("id_pengumuman"));
                     String judul = (String)json.get("judul");
                     String tanggal = (String)json.get("tanggal");
-                    int id_kegiatan = (int) json.get("kegiatan_id");
-                    String konten_teks = (String)json.get("konten_teks");
-                    String konten_gambar = (String)json.get("konten_gambar");
+                    int id_kegiatan = json.get("kegiatan_id") != null ? Integer.parseInt((String) json.get("kegiatan_id")) : -1;
+                    String konten_teks = json.get("konten_teks") != null ? (String)json.get("konten_teks") : "";
+                    String konten_gambar = json.get("konten_gambar") != null ? (String)json.get("konten_gambar") : "";
 
                     Pengumuman a = new Pengumuman(id_pengumuman, id_kegiatan, judul, tanggal, konten_teks, konten_gambar);
                     pengumumanList.add(a);
