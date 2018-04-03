@@ -1,6 +1,7 @@
 package ppl.pmotrainingapps.Login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,10 +22,23 @@ import ppl.pmotrainingapps.R;
 
 public class LoginActivity extends AppCompatActivity {
     public static JSONArray hasil = null;
+    public final static String SHARED_PREFERENCE_KEY = "SharedPreferenceKey";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        final SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(SHARED_PREFERENCE_KEY, MODE_PRIVATE);
+        String nama = sharedPreferences.getString("nama", null);
+        String NIP = sharedPreferences.getString("NIP", null);
+        if(nama!=null && NIP!=null){
+            Intent main = new Intent(getApplicationContext(), MainActivity.class);
+            main.putExtra("nama", nama);
+            main.putExtra("NIP",NIP);
+            main.putExtra("statusLogin", "success");
+            startActivity(main);
+            finish();
+        }
         // titip buat debugging
         FirebaseMessaging.getInstance().subscribeToTopic("all");
         Button buttonLogin = (Button) findViewById(R.id.buttonLogin);
@@ -34,6 +48,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String namaInput = editTextNama.getText().toString();
                 String NIPInput = editTextNIP.getText().toString();
+
+
+
                 Log.v("test", "nama: "+namaInput+" NIP: "+NIPInput);
                 // kirim intent ke main klo misal login berhasil..
                 // klo ga..kembali ke login
@@ -58,12 +75,18 @@ public class LoginActivity extends AppCompatActivity {
                             if((usernameString.equals(namaInput)) && (passwordString.equals(NIPInput))){
                                 Log.d("hore", "berhasil login");
                                 berhasilLogin = true;
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                editor.putString("nama", usernameString);
+                                editor.putString("NIP", passwordString);
+                                editor.commit();
+
                                 Intent main = new Intent(getApplicationContext(), MainActivity.class);
                                 main.putExtra("nama", editTextNama.getText().toString());
                                 main.putExtra("NIP",editTextNIP.getText().toString());
                                 main.putExtra("statusLogin", "success");
                                 startActivity(main);
-
+                                finish();
                             }
 //                        String passwordString = password.toString();
                             Log.d("testing final", "username: "+usernameString+" password: "+passwordString);
