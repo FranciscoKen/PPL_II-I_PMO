@@ -21,10 +21,9 @@ import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.spec.ECField;
 
-import ppl.pmotrainingapps.Home.HomeFragment;
 import ppl.pmotrainingapps.Main.MainActivity;
+import ppl.pmotrainingapps.PDF.PDFActivityExample;
 import ppl.pmotrainingapps.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -42,7 +41,12 @@ public class LoginActivity extends AppCompatActivity {
         String nama = sharedPreferences.getString("nama", null);
         String NIP = sharedPreferences.getString("NIP", null);
         if(nama!=null && NIP!=null){
+
             Intent main = new Intent(getApplicationContext(), MainActivity.class);
+
+            //Kalo mau tes PDF Viewer
+            //Intent main = new Intent(getApplicationContext(), PDFActivityExample.class);
+
             main.putExtra("nama", nama);
             main.putExtra("NIP",NIP);
             main.putExtra("statusLogin", "success");
