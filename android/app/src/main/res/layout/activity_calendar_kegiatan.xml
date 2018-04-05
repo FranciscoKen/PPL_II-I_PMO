@@ -3,35 +3,35 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/calendar_detail_title"
+        android:id="@+id/kegiatan_nama"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="[agenda title]"
         />
 
     <TextView
-        android:id="@+id/calendar_detail_target"
+        android:id="@+id/kegiatan_target"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="[target peserta]"
         />
 
     <TextView
-        android:id="@+id/calendar_detail_lokasi"
+        android:id="@+id/kegiatan_lokasi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="[lokasi]"
         />
 
     <TextView
-        android:id="@+id/calendar_detail_time"
+        android:id="@+id/kegiatan_waktu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="[waktu]"
         />
 
     <TextView
-        android:id="@+id/calendar_detail_desc"
+        android:id="@+id/kegiatan_deskripsi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="[deskripsi acara]"
