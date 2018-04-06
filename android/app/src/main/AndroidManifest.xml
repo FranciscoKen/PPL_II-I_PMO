@@ -47,10 +47,12 @@
             android:exported="false" />
         <service
             android:name=".Home.PengumumanGetterService"
-            android:exported="false"></service>
+            android:exported="false" />
         <service
             android:name=".Home.QuoteGetterService"
-            android:exported="false"></service>
+            android:exported="false" />
+
+        <activity android:name=".calendar.CalendarDetail"></activity>
     </application>
 
 </manifest>
