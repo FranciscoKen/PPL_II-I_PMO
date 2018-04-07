@@ -12,18 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Login.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Main.MainActivity">
-            <intent-filter>
-                <action android:name="mainActivity" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
 
         <service
@@ -47,7 +39,15 @@
             android:exported="false" />
         <service
             android:name=".Home.QuoteGetterService"
-            android:exported="false"></service>
+            android:exported="false" />
+
+        <activity android:name=".content.Berita">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
