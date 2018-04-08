@@ -20,23 +20,24 @@
                 android:id="@+id/headerText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
                 android:text="Hari Minggu, 26 September 2018 akan dilaksanakan kepelatihan kepemimpinan. Seluruh Tendik dan dosen wajib mengikuti."
                 android:textColor="@color/colorHeaderText"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/headerDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:text="20 September 2018"
                 android:textColor="@color/colorGray"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/headerImage"
@@ -47,21 +48,107 @@
                 android:id="@+id/contentText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Pada waktu dan tempat berikut:
-    Hari/Tanggal: 26 Desember 2018
-    Tempat: Lapangan UPT Saraga ITB
-Akan diadakan pelatihan kepemimpinan. Pelatihan ini akan dibawakan oleh 4 orang pembicara yaitu Cisco, Jekk, Dicky, dan Arya. Di acara ini seluruh Tendik dan Dosen diwajibkan untuk hadir karena merupakan bagian dari assesment."
+                android:layout_margin="15dp"
+                android:text="Pelatihan ini akan dibawakan oleh 4 orang pembicara yaitu Cisco, Jekk, Dicky, dan Arya. Di acara ini seluruh Tendik dan Dosen diwajibkan untuk hadir karena merupakan bagian dari assesment."
                 android:textColor="@color/colorHeaderText"
-                android:textSize="15sp" />
+                android:textSize="17sp"
+                />
+            <!-- Info Kegiatan. -->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:id="@+id/kegiatan">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/namakegiatan"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:drawablePadding="4dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingTop="4dp"
+                        android:text="Kegiatan Pramuka"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+                    <!-- Target Peserta. -->
+                    <TextView
+                        android:id="@+id/targetpeserta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:drawableLeft="@drawable/ic_action_name"
+                        android:drawablePadding="4dp"
+                        android:drawableStart="@drawable/ic_action_name"
+
+                        android:gravity="center_vertical"
+                        android:padding="4dp"
+                        android:text="Tendik dan Dosen"
+                        android:textSize="17sp"/>
+                    <!-- Location. -->
+                    <TextView
+                        android:id="@+id/lokasi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:drawableLeft="@drawable/ic_location"
+                        android:drawablePadding="4dp"
+
+                        android:drawableStart="@drawable/ic_location"
+                        android:gravity="center_vertical"
+                        android:padding="4dp"
+                        android:text="ITB"
+                        android:textSize="17sp"/>
+                    <!-- TIme. -->
+                    <TextView
+                        android:id="@+id/waktu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:drawableLeft="@drawable/ic_time"
+                        android:drawablePadding="4dp"
+
+                        android:drawableStart="@drawable/ic_time"
+                        android:gravity="center_vertical"
+                        android:padding="4dp"
+                        android:text="Minggu, 20 Januari 2018"
+                        android:textSize="17sp"/>
+                    <!-- Deskripsi. -->
+                    <TextView
+                        android:id="@+id/deskripsi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_description"
+                        android:drawablePadding="4dp"
+
+                        android:drawableStart="@drawable/ic_description"
+                        android:gravity="center_vertical"
+                        android:padding="4dp"
+                        android:text="Kegiatan ini banyak belajarnya dan mengajarkan banyak kepemimpinan"
+                        android:textSize="17sp" />
+
+
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
 
             <fragment
                 android:id="@+id/comment_fragment"
                 android:name="ppl.pmotrainingapps.content.CommentFragment"
                 android:layout_width="match_parent"
-                android:layout_marginTop ="20dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom ="20dp"
-                android:layout_height="wrap_content" />
+                android:layout_marginLeft ="15dp"
+                android:layout_marginRight ="15dp"
+                android:layout_marginTop ="20dp" />
 
         </LinearLayout>
 

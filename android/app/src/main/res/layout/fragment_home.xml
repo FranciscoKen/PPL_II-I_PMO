@@ -32,12 +32,12 @@
                     android:id="@+id/quotes_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="40dp"
                     android:textColor="@color/colorText"
-                    android:text="@string/Quote_Content"
+                    android:text="Tidak ada quotes"
+                    android:textSize="17dp"
                     />
                 <TextView
                     android:id="@+id/quotes_author"
@@ -50,6 +50,7 @@
                     android:layout_alignRight="@+id/quotes_content"
                     android:layout_below="@+id/quotes_content"
                     android:textColor="@color/colorText"
+                    android:textSize="16dp"
                     android:text="@string/Quote_author" />
 
             </RelativeLayout>
