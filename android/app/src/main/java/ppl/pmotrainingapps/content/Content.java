@@ -58,7 +58,7 @@ public class Content extends AppCompatActivity {
                         .error(R.mipmap.ic_launcher_round);
                 Glide.with(this).load(image_url).apply(options).into(headerImage);
             }
-            //tidak ada kegiatan
+            //tidak ada arr_kegiatan
             if(id_kegiatan == -1){
                 findViewById(R.id.kegiatan).setVisibility(View.GONE);
             } else{

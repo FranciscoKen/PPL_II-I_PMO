@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.DateFormat;
 import java.util.List;
 
 import ppl.pmotrainingapps.R;
@@ -50,10 +51,11 @@ public class CalendarDetailAdapter extends RecyclerView.Adapter<CalendarDetailAd
     @Override
     public void onBindViewHolder(CalendarViewHolder holder, int position) {
         Kegiatan kegiatan = kegiatanList.get(position);
-        holder.title.setText(kegiatan.getTitle());
+        holder.title.setText(kegiatan.getNama());
         holder.target.setText(kegiatan.getTarget());
         holder.lokasi.setText(kegiatan.getLokasi());
-        holder.waktu.setText(kegiatan.getWaktu());
+//        TODO: JAM
+//        holder.waktu.setText(DateFormat.format("HH:mm", kegiatan.getTanggal());
         holder.deskripsi.setText(kegiatan.getDeskripsi());
     }
 

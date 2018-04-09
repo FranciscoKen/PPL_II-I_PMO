@@ -1,64 +1,52 @@
 package ppl.pmotrainingapps.calendar;
 
+import java.util.Date;
+
 /**
  * Created by ayamberkakienam on 4/5/2018.
  */
 
 public class Kegiatan {
-    private String title;
+    private int id;
+    private String nama;
     private String target;
-    private String lokasi;
-    private String waktu;
     private String deskripsi;
+    private Date tanggal;
+    private String lokasi;
 
     public Kegiatan() {
     }
 
-    public String getTitle() {
-        return title;
+    public Kegiatan(int id, String nama, String target, String deskripsi, Date tanggal, String lokasi) {
+        this.id = id;
+        this.nama = nama;
+        this.target = target;
+        this.lokasi = lokasi;
+        this.tanggal = tanggal;
+        this.deskripsi = deskripsi;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public int getId() {
+        return id;
+    }
+
+    public String getNama() {
+        return nama;
     }
 
     public String getTarget() {
         return target;
     }
 
-    public void setTarget(String target) {
-        this.target = target;
-    }
-
-    public String getLokasi() {
-        return lokasi;
-    }
-
-    public void setLokasi(String lokasi) {
-        this.lokasi = lokasi;
-    }
-
-    public String getWaktu() {
-        return waktu;
-    }
-
-    public void setWaktu(String waktu) {
-        this.waktu = waktu;
-    }
-
     public String getDeskripsi() {
         return deskripsi;
     }
 
-    public void setDeskripsi(String deskripsi) {
-        this.deskripsi = deskripsi;
+    public long getTanggal() {
+        return new Date().getTime();
     }
 
-    public Kegiatan(String title, String target, String lokasi, String waktu, String deskripsi) {
-        this.title = title;
-        this.target = target;
-        this.lokasi = lokasi;
-        this.waktu = waktu;
-        this.deskripsi = deskripsi;
+    public String getLokasi() {
+        return lokasi;
     }
 }

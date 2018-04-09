@@ -66,7 +66,7 @@ public class KegiatanGetterService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Log.d("hi", "halo halo from kegiatan");
+        Log.d("hi", "halo halo from arr_kegiatan");
 
         String url = intent.getStringExtra("url");
         Log.d("hi", "url1: "+url);

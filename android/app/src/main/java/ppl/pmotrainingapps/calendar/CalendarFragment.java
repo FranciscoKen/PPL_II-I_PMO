@@ -58,7 +58,7 @@ public class CalendarFragment extends Fragment {
 //////        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24px);
 //////        actionBar.setDisplayHomeAsUpEnabled(true);
 ////        // Setting default toolbar title to empty
-////        actionBar.setTitle(null);
+////        actionBar.setNama(null);
 //
 //
 //        compactCalendarView = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
@@ -66,7 +66,7 @@ public class CalendarFragment extends Fragment {
 //        compactCalendarView.setUseThreeLetterAbbreviation(true);
 //
 //        //set initial title
-//        //actionBar.setTitle(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
+//        //actionBar.setNama(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
 //
 //        //set title on calendar scroll
 //        compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
@@ -81,8 +81,8 @@ public class CalendarFragment extends Fragment {
 //            @Override
 //            public void onMonthScroll(Date firstDayOfNewMonth) {
 //                // Changes toolbar title on monthChange
-//                //actionBar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
-//                toolbar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
+//                //actionBar.setNama(dateFormatForMonth.format(firstDayOfNewMonth));
+//                toolbar.setNama(dateFormatForMonth.format(firstDayOfNewMonth));
 //
 //            }
 //
@@ -109,7 +109,7 @@ public class CalendarFragment extends Fragment {
 ////        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24px);
 ////        actionBar.setDisplayHomeAsUpEnabled(true);
 //        // Setting default toolbar title to empty
-//        actionBar.setTitle(null);
+//        actionBar.setNama(null);
         monthHeader = (TextView) view.findViewById(R.id.nama_bulan);
         compactCalendarView = (CompactCalendarView) view.findViewById(R.id.compactcalendar_view);
 
@@ -117,7 +117,7 @@ public class CalendarFragment extends Fragment {
         compactCalendarView.setUseThreeLetterAbbreviation(true);
 
         //set initial title
-        //actionBar.setTitle(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
+        //actionBar.setNama(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
         monthHeader.setText(dateFormatForMonth.format(new Date()));
         //set title on calendar scroll
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
@@ -132,8 +132,8 @@ public class CalendarFragment extends Fragment {
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
                 // Changes toolbar title on monthChange
-                //actionBar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
-                //toolbar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
+                //actionBar.setNama(dateFormatForMonth.format(firstDayOfNewMonth));
+                //toolbar.setNama(dateFormatForMonth.format(firstDayOfNewMonth));
                 monthHeader.setText(dateFormatForMonth.format(firstDayOfNewMonth));
             }
 
