@@ -15,7 +15,11 @@
 
         </activity>
         <activity android:name=".Main.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <service
@@ -41,12 +45,8 @@
             android:name=".Home.QuoteGetterService"
             android:exported="false" />
 
-        <activity android:name=".content.Berita">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".berita.BeritaActivity">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
