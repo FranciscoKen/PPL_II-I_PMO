@@ -5,7 +5,8 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="Ini event view"
+        android:text="@string/textEvent"
+        android:id="@+id/textEvent"
         ></TextView>
 
 </android.support.constraint.ConstraintLayout>
