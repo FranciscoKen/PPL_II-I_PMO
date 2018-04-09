@@ -35,7 +35,8 @@ public class BeritaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_berita);
-        new BeritaTask(this, 11).execute();
+        Bundle b = getIntent().getExtras();
+        new BeritaTask(this, b.getInt("id")).execute();
 //        WebView webview = (WebView) findViewById(R.id.berita_webview);
         String tempdata = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n" +
                 "<?xml encoding=\"utf-8\" ?><html><body><div style=\"text-align:center;\"></div>\n" +

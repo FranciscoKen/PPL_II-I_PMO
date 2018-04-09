@@ -102,7 +102,7 @@ public class AdapterBerita extends RecyclerView.Adapter<AdapterBerita.MyViewHold
     public void ItemClick(View v, Berita berita) {
         Intent intent = new Intent(v.getContext(), BeritaActivity.class);
         Bundle b = new Bundle();
-        b.putInt("id_berita", berita.getId()); //Your id
+        b.putInt("id", berita.getId()); //Your id
         intent.putExtras(b); //Put your id to your next Intent
         v.getContext().startActivity(intent);
     }
