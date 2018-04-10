@@ -50,7 +50,7 @@
         <service
             android:name=".Home.QuoteGetterService"
             android:exported="false" />
-
+        <activity android:name=".calendar.EventActivity"></activity>
         <activity android:name="ppl.pmotrainingapps.PDF.PDFActivityExample"></activity>
         <activity android:name="ppl.pmotrainingapps.PDF.PDFViewer"></activity>
     </application>
