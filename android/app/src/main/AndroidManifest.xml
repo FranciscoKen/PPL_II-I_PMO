@@ -14,17 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Login.LoginActivity">
+
+        </activity>
+        <activity android:name=".Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".Main.MainActivity">
-            <intent-filter>
-                <action android:name="mainActivity" />
-
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -53,6 +49,12 @@
         <activity android:name=".calendar.EventActivity"></activity>
         <activity android:name="ppl.pmotrainingapps.PDF.PDFActivityExample"></activity>
         <activity android:name="ppl.pmotrainingapps.PDF.PDFViewer"></activity>
+
+            android:exported="false" />
+
+        <activity android:name=".berita.BeritaActivity">
+
+        </activity>
     </application>
 
 </manifest>

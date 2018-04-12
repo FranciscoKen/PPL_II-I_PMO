@@ -14,4 +14,5 @@
     <string name="comment_hint">Tambahkan komentar...</string>
     <string name="send">kirim</string>
     <string name="Quote_author">Anonymous</string>
+    <string name="textEvent">Ini event view</string>
 </resources>
