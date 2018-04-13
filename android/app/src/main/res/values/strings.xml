@@ -10,6 +10,7 @@
     <string name="tab_label3">Kalender</string>
     <string name="tab_label4">Materi</string>
     <string name="header_pengumuman">Pengumuman Penting:</string>
+    <string name="header_materi">Daftar Materi:</string>
     <string name="comments">Komentar</string>
     <string name="comment_hint">Tambahkan komentar...</string>
     <string name="send">kirim</string>
