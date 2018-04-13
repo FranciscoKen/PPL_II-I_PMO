@@ -19,7 +19,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/judul"
+                android:id="@+id/judulMateri"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="30dp"
@@ -30,10 +30,10 @@
                 android:text="@string/sample_judul_materi"/>
 
             <TextView
-                android:id="@+id/topik"
+                android:id="@+id/topikMateri"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/judul"
+                android:layout_below="@+id/judulMateri"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
                 android:paddingBottom="10dp"
