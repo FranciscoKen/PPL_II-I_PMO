@@ -8,6 +8,15 @@ public class Materi {
     private String video;
     private String pdf;
 
+    public Materi(int idMateri, String topik, String judul, String konten, String video, String pdf) {
+        this.idMateri = idMateri;
+        this.topik = topik;
+        this.judul = judul;
+        this.konten = konten;
+        this.video = video;
+        this.pdf = pdf;
+    }
+
     public int getIdMateri() {
         return idMateri;
     }
