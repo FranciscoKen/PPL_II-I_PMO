@@ -16,4 +16,6 @@
     <string name="send">kirim</string>
     <string name="Quote_author">Anonymous</string>
     <string name="textEvent">Ini event view</string>
+    <string name="sample_judul_materi">Latihan Kepemimpinan PMO</string>
+    <string name="sample_topik_materi">Kepemimpinan</string>
 </resources>
