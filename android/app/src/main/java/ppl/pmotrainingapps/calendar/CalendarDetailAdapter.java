@@ -22,22 +22,22 @@ public class CalendarDetailAdapter extends RecyclerView.Adapter<CalendarDetailAd
     public class CalendarViewHolder extends RecyclerView.ViewHolder {
 
         public TextView title;
-        public TextView target;
-        public TextView lokasi;
-        public TextView waktu;
-        public TextView deskripsi;
+        TextView target;
+        TextView lokasi;
+        TextView waktu;
+        TextView deskripsi;
 
-        public CalendarViewHolder(View itemView) {
+        CalendarViewHolder(View itemView) {
             super(itemView);
-            title       = (TextView) itemView.findViewById(R.id.kegiatan_nama);
-            target      = (TextView) itemView.findViewById(R.id.kegiatan_target);
-            lokasi      = (TextView) itemView.findViewById(R.id.kegiatan_lokasi);
-            waktu       = (TextView) itemView.findViewById(R.id.kegiatan_waktu);
-            deskripsi   = (TextView) itemView.findViewById(R.id.kegiatan_deskripsi);
+            title       = itemView.findViewById(R.id.kegiatan_nama);
+            target      = itemView.findViewById(R.id.kegiatan_target);
+            lokasi      = itemView.findViewById(R.id.kegiatan_lokasi);
+            waktu       = itemView.findViewById(R.id.kegiatan_waktu);
+            deskripsi   = itemView.findViewById(R.id.kegiatan_deskripsi);
         }
     }
 
-    public CalendarDetailAdapter(List<Kegiatan> kegiatanList) {
+    CalendarDetailAdapter(List<Kegiatan> kegiatanList) {
         this.kegiatanList = kegiatanList;
     }
 

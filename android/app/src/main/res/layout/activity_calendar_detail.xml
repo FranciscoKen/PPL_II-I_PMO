@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
 
     <TextView
         android:id="@+id/calendar_detail_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="[tanggal]"/>
+        android:text="[tanggal]"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/calendar_detail_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0 agenda(s)"/>
+        android:text="0 agenda(s)" />
 
     <TextView
         android:id="@+id/calendar_detail_haribesar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        tools:textColor="#980000" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/calendar_detail_events"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp" />
 
 </LinearLayout>
