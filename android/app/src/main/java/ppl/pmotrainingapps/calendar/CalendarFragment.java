@@ -158,7 +158,7 @@ public class CalendarFragment extends Fragment {
                 //Toast.makeText(getActivity(), "Date : " + dateClicked.toString(), Toast.LENGTH_SHORT).show();
                 if(hasilEvent != null){
                     @SuppressLint("SimpleDateFormat") SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
-                    Intent event = new Intent(getActivity(), EventActivity.class);
+                    Intent event = new Intent(getActivity(), CalendarDetail.class);
                     event.putExtra("data", dt.format(dateClicked));
                     startActivity(event);
                 } else {

@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.LoginFilter;
+import android.util.Log;
 import android.widget.TextView;
 
 import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -33,6 +35,7 @@ public class CalendarDetail extends AppCompatActivity {
     private final static String TAG = "CalendarDetail";
 
     public static JSONArray arr_kegiatan = null;
+    public static JSONObject hari_besar = null;
 
     private TextView date;
     private TextView num;
@@ -72,6 +75,7 @@ public class CalendarDetail extends AppCompatActivity {
 
     public void setKegiatan() {
         if (arr_kegiatan != null) {
+            Log.d("arr_kegiatan_size", "arr_kegiatan size: " + arr_kegiatan.size());
             for (int i = 0; i < arr_kegiatan.size(); i++) {
                 String hasilFetch = arr_kegiatan.get(i).toString();
                 try {
@@ -80,14 +84,12 @@ public class CalendarDetail extends AppCompatActivity {
                     String nama_kegiatan = json.get("nama_kegiatan") != null ? (String) json.get("nama_kegiatan") : "";
                     String target_peserta = json.get("target_peserta") != null ? (String) json.get("target_peserta") : "";
                     String deskripsi_kegiatan = json.get("deskripsi_kegiatan") != null ? (String) json.get("deskripsi_kegiatan") : "";
-                    Date tanggal_kegiatan = Date.valueOf(json.get("tanggal_kegiatan") != null ? (String) json.get("tanggal_kegiatan") : "");
+                    String tanggal_kegiatan = json.get("tanggal_kegiatan") != null ? (String) json.get("tanggal_kegiatan") : "";
                     String lokasi_kegiatan = json.get("lokasi_kegiatan") != null ? (String) json.get("lokasi_kegiatan") : "";
 
                     Kegiatan kegiatan = new Kegiatan(id_kegiatan, nama_kegiatan, target_peserta, deskripsi_kegiatan, tanggal_kegiatan, lokasi_kegiatan);
                     kegiatanList.add(kegiatan);
                 } catch (ParseException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
@@ -115,7 +117,7 @@ public class CalendarDetail extends AppCompatActivity {
                     InputStream responseBody = connection.getInputStream();
                     JSONParser jsonParser = new JSONParser();
                     JSONArray jsonArray = (JSONArray) jsonParser.parse(new InputStreamReader(responseBody, "UTF-8"));
-                    CalendarDetail.arr_kegiatan = jsonArray;
+                    CalendarDetail.arr_kegiatan = (JSONArray) jsonArray.get(1);
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();

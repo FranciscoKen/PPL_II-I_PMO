@@ -54,8 +54,7 @@ public class CalendarDetailAdapter extends RecyclerView.Adapter<CalendarDetailAd
         holder.title.setText(kegiatan.getNama());
         holder.target.setText(kegiatan.getTarget());
         holder.lokasi.setText(kegiatan.getLokasi());
-//        TODO: JAM
-//        holder.waktu.setText(DateFormat.format("HH:mm", kegiatan.getTanggal());
+        holder.waktu.setText(kegiatan.getTanggal());
         holder.deskripsi.setText(kegiatan.getDeskripsi());
     }
 

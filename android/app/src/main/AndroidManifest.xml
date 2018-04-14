@@ -55,6 +55,7 @@
         <activity android:name=".berita.BeritaActivity">
 
         </activity>
+        <activity android:name=".calendar.CalendarDetail"/>
     </application>
 
 </manifest>

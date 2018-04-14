@@ -11,13 +11,13 @@ public class Kegiatan {
     private String nama;
     private String target;
     private String deskripsi;
-    private Date tanggal;
+    private String tanggal;
     private String lokasi;
 
     public Kegiatan() {
     }
 
-    public Kegiatan(int id, String nama, String target, String deskripsi, Date tanggal, String lokasi) {
+    public Kegiatan(int id, String nama, String target, String deskripsi, String tanggal, String lokasi) {
         this.id = id;
         this.nama = nama;
         this.target = target;
@@ -42,8 +42,8 @@ public class Kegiatan {
         return deskripsi;
     }
 
-    public long getTanggal() {
-        return new Date().getTime();
+    public String getTanggal() {
+        return tanggal;
     }
 
     public String getLokasi() {
