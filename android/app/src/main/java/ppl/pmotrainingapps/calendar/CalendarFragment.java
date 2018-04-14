@@ -157,7 +157,7 @@ public class CalendarFragment extends Fragment {
             public void onDayClick(Date dateClicked) {
                 //Toast.makeText(getActivity(), "Date : " + dateClicked.toString(), Toast.LENGTH_SHORT).show();
                 if(hasilEvent != null){
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
                     Intent event = new Intent(getActivity(), EventActivity.class);
                     event.putExtra("data", dt.format(dateClicked));
                     startActivity(event);
