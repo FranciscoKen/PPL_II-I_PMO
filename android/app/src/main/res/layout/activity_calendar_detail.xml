@@ -13,13 +13,12 @@
         android:id="@+id/calendar_detail_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="[X agenda(s)]"/>
+        android:text="0 agenda(s)"/>
 
     <TextView
         android:id="@+id/calendar_detail_haribesar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="[hari besar]"/>
+        android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/calendar_detail_events"

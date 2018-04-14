@@ -1,16 +1,16 @@
 package ppl.pmotrainingapps.calendar;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.LoginFilter;
 import android.util.Log;
 import android.widget.TextView;
 
-import org.json.JSONException;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
@@ -23,39 +23,43 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import ppl.pmotrainingapps.Pengumuman.Pengumuman;
 import ppl.pmotrainingapps.R;
 
 public class CalendarDetail extends AppCompatActivity {
 
-    private final static String TAG = "CalendarDetail";
-
     public static JSONArray arr_kegiatan = null;
-    public static JSONObject hari_besar = null;
+    public static JSONArray hari_besar = null;
 
     private TextView date;
     private TextView num;
     private TextView haribesar;
-    private RecyclerView events;
     private CalendarDetailAdapter adapter;
     private List<Kegiatan> kegiatanList;
 
     public CalendarDetail() {
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar_detail);
 
-        date = (TextView) findViewById(R.id.calendar_detail_date);
-        num = (TextView) findViewById(R.id.calendar_detail_num);
-        haribesar = (TextView) findViewById(R.id.calendar_detail_haribesar);
-        events = (RecyclerView) findViewById(R.id.calendar_detail_events);
+        Intent intent = getIntent();
+        String[] dateString = intent.getStringExtra("date").split("-");
+        String day = dateString[0];
+        String month = dateString[1];
+        String year = dateString[2];
+
+        date = findViewById(R.id.calendar_detail_date);
+        date.setText(day + month + year + "");
+
+        num = findViewById(R.id.calendar_detail_num);
+        haribesar = findViewById(R.id.calendar_detail_haribesar);
+        RecyclerView events = findViewById(R.id.calendar_detail_events);
 
         kegiatanList = new ArrayList<>();
         adapter = new CalendarDetailAdapter(kegiatanList);
@@ -70,7 +74,7 @@ public class CalendarDetail extends AppCompatActivity {
     }
 
     private void prepareKegiatan() {
-        new KegiatanTask(this).execute();
+        new CalendarDetailTask(this).execute();
     }
 
     public void setKegiatan() {
@@ -78,7 +82,9 @@ public class CalendarDetail extends AppCompatActivity {
             Log.d("arr_kegiatan_size", "arr_kegiatan size: " + arr_kegiatan.size());
             for (int i = 0; i < arr_kegiatan.size(); i++) {
                 String hasilFetch = arr_kegiatan.get(i).toString();
+                Log.d("kegiatan_fetch", "hasilFetch " + i + ": " + hasilFetch);
                 try {
+                    // TODO: Bug, cuma 1 kegiatan yg mau nongol
                     JSONObject json = (JSONObject) new JSONParser().parse(hasilFetch);
                     int id_kegiatan = json.get("id_kegiatan") != null ? Integer.parseInt((String) json.get("id_kegiatan")) : -1;
                     String nama_kegiatan = json.get("nama_kegiatan") != null ? (String) json.get("nama_kegiatan") : "";
@@ -88,6 +94,7 @@ public class CalendarDetail extends AppCompatActivity {
                     String lokasi_kegiatan = json.get("lokasi_kegiatan") != null ? (String) json.get("lokasi_kegiatan") : "";
 
                     Kegiatan kegiatan = new Kegiatan(id_kegiatan, nama_kegiatan, target_peserta, deskripsi_kegiatan, tanggal_kegiatan, lokasi_kegiatan);
+                    Log.d("kegiatan_add_status", "Success: " + i);
                     kegiatanList.add(kegiatan);
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -97,19 +104,33 @@ public class CalendarDetail extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    private static class KegiatanTask extends AsyncTask<Void, Void, Void> {
+    public void setHariBesar() {
+        if (hari_besar != null) {
+            JSONObject json = (JSONObject) hari_besar.get(0);
+            haribesar.setText(json.get("nama").toString());
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void setKegiatanNum() {
+        if (arr_kegiatan != null) {
+            int knum = arr_kegiatan.size();
+            num.setText(knum + " agenda(s)");
+        }
+    }
+
+    private static class CalendarDetailTask extends AsyncTask<Void, Void, Void> {
 
         private WeakReference<CalendarDetail> activityReference;
 
-        KegiatanTask(CalendarDetail context) {
+        CalendarDetailTask(CalendarDetail context) {
             activityReference = new WeakReference<>(context);
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            StringBuilder result = new StringBuilder();
             try {
-                // TODO: getAllWHAT?
+                // TODO: Change to actual date from intent
                 URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getCalendarDetailByDate.php?date=2018-03-10");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
@@ -117,6 +138,7 @@ public class CalendarDetail extends AppCompatActivity {
                     InputStream responseBody = connection.getInputStream();
                     JSONParser jsonParser = new JSONParser();
                     JSONArray jsonArray = (JSONArray) jsonParser.parse(new InputStreamReader(responseBody, "UTF-8"));
+                    CalendarDetail.hari_besar = (JSONArray) jsonArray.get(0);
                     CalendarDetail.arr_kegiatan = (JSONArray) jsonArray.get(1);
                 }
             } catch (MalformedURLException e) {
@@ -134,6 +156,8 @@ public class CalendarDetail extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             CalendarDetail activity = activityReference.get();
             activity.setKegiatan();
+            activity.setHariBesar();
+            activity.setKegiatanNum();
         }
     }
 }
