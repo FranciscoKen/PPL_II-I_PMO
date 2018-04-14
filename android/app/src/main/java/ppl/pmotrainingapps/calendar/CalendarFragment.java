@@ -1,5 +1,6 @@
 package ppl.pmotrainingapps.calendar;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -31,6 +32,7 @@ import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -155,8 +157,9 @@ public class CalendarFragment extends Fragment {
             public void onDayClick(Date dateClicked) {
                 //Toast.makeText(getActivity(), "Date : " + dateClicked.toString(), Toast.LENGTH_SHORT).show();
                 if(hasilEvent != null){
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
                     Intent event = new Intent(getActivity(), EventActivity.class);
-                    event.putExtra("data","Date : " + dateClicked.toString());
+                    event.putExtra("data", dt.format(dateClicked));
                     startActivity(event);
                 } else {
                     Toast.makeText(getActivity(),"Loading events.. please try again",Toast.LENGTH_LONG).show();

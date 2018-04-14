@@ -108,7 +108,7 @@ public class CalendarDetail extends AppCompatActivity {
             StringBuilder result = new StringBuilder();
             try {
                 // TODO: getAllWHAT?
-                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllKegiatan.php");
+                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getCalendarDetailByDate.php?date=2018-03-10");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 if (connection.getResponseCode() == 200) {

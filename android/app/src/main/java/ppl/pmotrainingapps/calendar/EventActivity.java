@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+
 import ppl.pmotrainingapps.R;
 
 public class EventActivity extends AppCompatActivity {
