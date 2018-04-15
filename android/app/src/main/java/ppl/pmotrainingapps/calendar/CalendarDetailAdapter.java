@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.text.DateFormat;
 import java.util.List;
 
 import ppl.pmotrainingapps.R;
@@ -18,24 +17,6 @@ import ppl.pmotrainingapps.R;
 public class CalendarDetailAdapter extends RecyclerView.Adapter<CalendarDetailAdapter.CalendarViewHolder> {
 
     private List<Kegiatan> kegiatanList;
-
-    public class CalendarViewHolder extends RecyclerView.ViewHolder {
-
-        public TextView title;
-        TextView target;
-        TextView lokasi;
-        TextView waktu;
-        TextView deskripsi;
-
-        CalendarViewHolder(View itemView) {
-            super(itemView);
-            title       = itemView.findViewById(R.id.kegiatan_nama);
-            target      = itemView.findViewById(R.id.kegiatan_target);
-            lokasi      = itemView.findViewById(R.id.kegiatan_lokasi);
-            waktu       = itemView.findViewById(R.id.kegiatan_waktu);
-            deskripsi   = itemView.findViewById(R.id.kegiatan_deskripsi);
-        }
-    }
 
     CalendarDetailAdapter(List<Kegiatan> kegiatanList) {
         this.kegiatanList = kegiatanList;
@@ -61,5 +42,23 @@ public class CalendarDetailAdapter extends RecyclerView.Adapter<CalendarDetailAd
     @Override
     public int getItemCount() {
         return kegiatanList.size();
+    }
+
+    public class CalendarViewHolder extends RecyclerView.ViewHolder {
+
+        public TextView title;
+        TextView target;
+        TextView lokasi;
+        TextView waktu;
+        TextView deskripsi;
+
+        CalendarViewHolder(View itemView) {
+            super(itemView);
+            title = itemView.findViewById(R.id.kegiatan_nama);
+            target = itemView.findViewById(R.id.kegiatan_target);
+            lokasi = itemView.findViewById(R.id.kegiatan_lokasi);
+            waktu = itemView.findViewById(R.id.kegiatan_waktu);
+            deskripsi = itemView.findViewById(R.id.kegiatan_deskripsi);
+        }
     }
 }

@@ -16,4 +16,10 @@
     <string name="Quote_author">Anonymous</string>
     <string name="textEvent">Ini event view</string>
     <string name="calendardetail_def_agenda_num">0 agenda(s)</string>
+    <string name="calendardetail_def_agenda_name">Agenda</string>
+    <string name="calendardetail_def_agenda_target">Target peserta:</string>
+    <string name="calendar_detail_img_location_logo">location logo</string>
+    <string name="calendardetail_def_agenda_location">Lokasi</string>
+    <string name="calendardetail_img_time_logo">time logo</string>
+    <string name="calendardetail_def_agenda_time">[tanggal]</string>
 </resources>

@@ -1,7 +1,5 @@
 package ppl.pmotrainingapps.calendar;
 
-import java.util.Date;
-
 /**
  * Created by ayamberkakienam on 4/5/2018.
  */
@@ -30,15 +28,15 @@ public class Kegiatan {
         return id;
     }
 
-    public String getNama() {
+    String getNama() {
         return nama;
     }
 
-    public String getTarget() {
+    String getTarget() {
         return target;
     }
 
-    public String getDeskripsi() {
+    String getDeskripsi() {
         return deskripsi;
     }
 
@@ -46,7 +44,7 @@ public class Kegiatan {
         return tanggal;
     }
 
-    public String getLokasi() {
+    String getLokasi() {
         return lokasi;
     }
 }

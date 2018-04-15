@@ -3,16 +3,16 @@ package ppl.pmotrainingapps.calendar;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 
-import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -23,6 +23,7 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class CalendarDetail extends AppCompatActivity {
     public static JSONArray arr_kegiatan = null;
     public static JSONArray hari_besar = null;
 
-    private TextView date;
+    static String dateString;
     private TextView num;
     private TextView haribesar;
     private CalendarDetailAdapter adapter;
@@ -49,12 +50,14 @@ public class CalendarDetail extends AppCompatActivity {
         setContentView(R.layout.activity_calendar_detail);
 
         Intent intent = getIntent();
-        String[] dateString = intent.getStringExtra("date").split("-");
-        String day = dateString[0];
-        String month = dateString[1];
-        String year = dateString[2];
+        dateString = intent.getStringExtra("date");
+        String[] date_arr = dateString.split("-");
 
-        date = findViewById(R.id.calendar_detail_date);
+        String day = date_arr[2];
+        String month = new DateFormatSymbols().getMonths()[Integer.parseInt(date_arr[1]) - 1];
+        String year = date_arr[0];
+
+        TextView date = findViewById(R.id.calendar_detail_date);
         date.setText(day + " " + month + " " + year);
 
         num = findViewById(R.id.calendar_detail_num);
@@ -84,10 +87,9 @@ public class CalendarDetail extends AppCompatActivity {
                 String hasilFetch = arr_kegiatan.get(i).toString();
                 Log.d("kegiatan_fetch", "hasilFetch " + i + ": " + hasilFetch);
                 try {
-                    // TODO: Bug, cuma 1 kegiatan yg mau nongol
                     JSONObject json = (JSONObject) new JSONParser().parse(hasilFetch);
                     int id_kegiatan = json.get("id_kegiatan") != null ? Integer.parseInt((String) json.get("id_kegiatan")) : -1;
-                    String nama_kegiatan = json.get("nama_kegiatan") != null ? (i+1) + ". " + (String) json.get("nama_kegiatan") : "";
+                    String nama_kegiatan = json.get("nama_kegiatan") != null ? (i + 1) + ". " + json.get("nama_kegiatan") : "";
                     String target_peserta = json.get("target_peserta") != null ? (String) json.get("target_peserta") : "";
                     String deskripsi_kegiatan = json.get("deskripsi_kegiatan") != null ? (String) json.get("deskripsi_kegiatan") : "";
                     String tanggal_kegiatan = json.get("tanggal_kegiatan") != null ? (String) json.get("tanggal_kegiatan") : "";
@@ -105,7 +107,7 @@ public class CalendarDetail extends AppCompatActivity {
     }
 
     public void setHariBesar() {
-        if (hari_besar != null) {
+        if (hari_besar.size() != 0) {
             JSONObject json = (JSONObject) hari_besar.get(0);
             haribesar.setText(json.get("nama").toString());
         }
@@ -130,8 +132,7 @@ public class CalendarDetail extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                // TODO: Change to actual date from intent
-                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getCalendarDetailByDate.php?date=2018-03-10");
+                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getCalendarDetailByDate.php?date=" + dateString);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 if (connection.getResponseCode() == 200) {

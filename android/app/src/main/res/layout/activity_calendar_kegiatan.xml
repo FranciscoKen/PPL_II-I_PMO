@@ -9,7 +9,7 @@
         android:id="@+id/kegiatan_nama"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="[agenda nama]"
+        android:text="@string/calendardetail_def_agenda_name"
         android:textSize="25sp" />
 
     <TextView
@@ -18,18 +18,21 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
         android:layout_marginLeft="20dp"
-        android:text="[target peserta]" />
+        android:layout_marginStart="20dp"
+        android:text="@string/calendardetail_def_agenda_target" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="3dp"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:contentDescription="@string/calendar_detail_img_location_logo"
             android:scaleType="fitXY"
             android:src="@drawable/ic_location" />
 
@@ -38,17 +41,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
-            android:text="[lokasi]" />
+            android:layout_marginStart="3dp"
+            android:text="@string/calendardetail_def_agenda_location" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp">
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp">
 
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:contentDescription="@string/calendardetail_img_time_logo"
             android:scaleType="fitXY"
             android:src="@drawable/ic_time" />
 
@@ -57,7 +63,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
-            android:text="[tanggal]" />
+            android:layout_marginStart="3dp"
+            android:text="@string/calendardetail_def_agenda_time" />
     </LinearLayout>
 
     <TextView
@@ -65,8 +72,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="3dp"
-        android:text="[deskripsi acara]" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="3dp" />
 
     <View
         android:layout_width="wrap_content"
