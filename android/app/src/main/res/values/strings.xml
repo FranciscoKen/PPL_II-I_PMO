@@ -10,6 +10,7 @@
     <string name="tab_label3">Kalender</string>
     <string name="tab_label4">Materi</string>
     <string name="header_pengumuman">Pengumuman Penting:</string>
+    <string name="header_materi">Daftar Materi:</string>
     <string name="comments">Komentar</string>
     <string name="comment_hint">Tambahkan komentar...</string>
     <string name="send">kirim</string>
@@ -22,4 +23,6 @@
     <string name="calendardetail_def_agenda_location">Lokasi</string>
     <string name="calendardetail_img_time_logo">time logo</string>
     <string name="calendardetail_def_agenda_time">[tanggal]</string>
+    <string name="sample_judul_materi">Latihan Kepemimpinan PMO</string>
+    <string name="sample_topik_materi">Kepemimpinan</string>
 </resources>
