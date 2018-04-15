@@ -55,7 +55,7 @@ public class CalendarDetail extends AppCompatActivity {
         String year = dateString[2];
 
         date = findViewById(R.id.calendar_detail_date);
-        date.setText(day + month + year + "");
+        date.setText(day + " " + month + " " + year);
 
         num = findViewById(R.id.calendar_detail_num);
         haribesar = findViewById(R.id.calendar_detail_haribesar);
@@ -87,7 +87,7 @@ public class CalendarDetail extends AppCompatActivity {
                     // TODO: Bug, cuma 1 kegiatan yg mau nongol
                     JSONObject json = (JSONObject) new JSONParser().parse(hasilFetch);
                     int id_kegiatan = json.get("id_kegiatan") != null ? Integer.parseInt((String) json.get("id_kegiatan")) : -1;
-                    String nama_kegiatan = json.get("nama_kegiatan") != null ? (String) json.get("nama_kegiatan") : "";
+                    String nama_kegiatan = json.get("nama_kegiatan") != null ? (i+1) + ". " + (String) json.get("nama_kegiatan") : "";
                     String target_peserta = json.get("target_peserta") != null ? (String) json.get("target_peserta") : "";
                     String deskripsi_kegiatan = json.get("deskripsi_kegiatan") != null ? (String) json.get("deskripsi_kegiatan") : "";
                     String tanggal_kegiatan = json.get("tanggal_kegiatan") != null ? (String) json.get("tanggal_kegiatan") : "";

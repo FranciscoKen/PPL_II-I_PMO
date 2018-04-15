@@ -15,4 +15,5 @@
     <string name="send">kirim</string>
     <string name="Quote_author">Anonymous</string>
     <string name="textEvent">Ini event view</string>
+    <string name="calendardetail_def_agenda_num">0 agenda(s)</string>
 </resources>
