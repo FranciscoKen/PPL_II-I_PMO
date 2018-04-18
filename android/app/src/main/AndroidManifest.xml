@@ -38,7 +38,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".content.Content" />
+        <activity android:name=".Pengumuman.Content" />
 
         <service
             android:name=".Login.UserGetterService"

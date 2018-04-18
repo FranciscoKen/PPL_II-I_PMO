@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ppl.pmotrainingapps.R;
-import ppl.pmotrainingapps.content.Content;
+import ppl.pmotrainingapps.Pengumuman.Content;
 
 /**
  * Created by Arya Pradipta on 08/04/2018.

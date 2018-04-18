@@ -1,6 +1,8 @@
-package ppl.pmotrainingapps.content;
+package ppl.pmotrainingapps.Pengumuman;
 
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,8 +23,7 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import ppl.pmotrainingapps.Home.HomeFragment;
-import ppl.pmotrainingapps.Pengumuman.Pengumuman;
+import ppl.pmotrainingapps.Comment.CommentFragment;
 import ppl.pmotrainingapps.R;
 
 public class Content extends AppCompatActivity {
@@ -31,8 +32,13 @@ public class Content extends AppCompatActivity {
     TextView dateText;
     TextView contentText;
     ImageView headerImage;
+    private Fragment mCommentCardFragment;
+    int id_pengumuman;
     int id_kegiatan;
+
     public static JSONArray kegiatan;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +48,6 @@ public class Content extends AppCompatActivity {
         headerText =  findViewById(R.id.headerText);
         dateText =  findViewById(R.id.headerDate);
 
-
         Bundle b = getIntent().getExtras();
         int value = -1; // or other values
         if(b != null){
@@ -51,6 +56,8 @@ public class Content extends AppCompatActivity {
             dateText.setText(b.getString("tanggal"));
             String image_url = b.getString("konten_gambar");
             id_kegiatan = b.getInt("id_kegiatan");
+            id_pengumuman = b.getInt("id_pengumuman");
+
             if(!image_url.equals("") ){
                 RequestOptions options = new RequestOptions()
                         .centerCrop().override(1000,1000)
@@ -64,9 +71,19 @@ public class Content extends AppCompatActivity {
             } else{
                 new KegiatanTask(this).execute();
             }
-
         }
+        initComment();
+    }
 
+    public void initComment(){
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+        if (mCommentCardFragment == null) {
+            mCommentCardFragment = CommentFragment.newInstance(CommentFragment.JENIS_PENGUMUMAN, id_pengumuman);
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.product_comment_fragment_container, mCommentCardFragment)
+                    .commit();
+        }
     }
 
     public void setKegiatan(){

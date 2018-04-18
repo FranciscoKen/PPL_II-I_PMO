@@ -18,7 +18,7 @@ import java.util.List;
 import ppl.pmotrainingapps.Home.AdapterPengumuman;
 import ppl.pmotrainingapps.Pengumuman.Pengumuman;
 import ppl.pmotrainingapps.R;
-import ppl.pmotrainingapps.content.Content;
+import ppl.pmotrainingapps.Pengumuman.Content;
 
 public class AdapterMateri extends RecyclerView.Adapter<AdapterMateri.MyViewHolder>{
     private Context mContext;

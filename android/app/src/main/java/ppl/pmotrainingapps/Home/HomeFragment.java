@@ -123,7 +123,6 @@ public class HomeFragment extends Fragment {
                 e.printStackTrace();
             }
 
-        } else {
         }
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());

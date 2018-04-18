@@ -24,7 +24,7 @@ import java.util.List;
 import ppl.pmotrainingapps.Main.MainActivity;
 import ppl.pmotrainingapps.Pengumuman.Pengumuman;
 import ppl.pmotrainingapps.R;
-import ppl.pmotrainingapps.content.Content;
+import ppl.pmotrainingapps.Pengumuman.Content;
 
 public class AdapterPengumuman extends RecyclerView.Adapter<AdapterPengumuman.MyViewHolder> {
 

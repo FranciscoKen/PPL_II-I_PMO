@@ -83,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
 //                        JSONObject password = (JSONObject) json.get("passwd");
                     String usernameString = (String)json.get("username");
                     String passwordString = (String)json.get("passwd");
+                    int id = (int)json.get("id");
                     if((usernameString.equals(namaInput)) && (passwordString.equals(NIPInput))){
                         Log.d("hore", "berhasil login");
                         berhasilLogin = true;
@@ -90,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         editor.putString("nama", usernameString);
                         editor.putString("NIP", passwordString);
+                        editor.putInt("id_user", id);
                         editor.commit();
 
                         Intent main = new Intent(getApplicationContext(), MainActivity.class);
