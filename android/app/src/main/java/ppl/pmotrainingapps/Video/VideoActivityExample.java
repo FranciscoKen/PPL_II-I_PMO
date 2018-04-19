@@ -65,8 +65,6 @@ public class VideoActivityExample extends AppCompatActivity{
             } else {
                 videoView.pause();
             }
-        } else {
-
         }
 
         mPlayButton.setOnClickListener(new View.OnClickListener() {
