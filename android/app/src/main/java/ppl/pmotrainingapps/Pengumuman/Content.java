@@ -53,7 +53,8 @@ public class Content extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         int value = -1; // or other values
-        id = b.getInt("id", -1);
+        id = Integer.parseInt(b.getString("id"));
+
         if(id == -1){
             contentText.setText(b.getString("konten_teks"));
             headerText.setText(b.getString("judul"));
@@ -76,7 +77,7 @@ public class Content extends AppCompatActivity {
                 new KegiatanTask(this).execute();
             }
         } else{
-
+            new PengumumanTask(this).execute();
         }
         initComment();
     }
