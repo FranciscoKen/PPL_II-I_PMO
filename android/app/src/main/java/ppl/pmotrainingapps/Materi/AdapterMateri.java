@@ -61,7 +61,7 @@ public class AdapterMateri extends RecyclerView.Adapter<AdapterMateri.MyViewHold
     }
 
     public void ItemClick(View v, Materi materi) {
-        //Intent intent = new Intent(v.getContext(), Content.class);
+        Intent intent = new Intent(v.getContext(), ContentMateri.class);
         Bundle b = new Bundle();
         b.putInt("id_materi", materi.getIdMateri());
         b.putString("topik_materi", materi.getTopik());
@@ -70,8 +70,8 @@ public class AdapterMateri extends RecyclerView.Adapter<AdapterMateri.MyViewHold
         b.putString("video_materi", materi.getVideo());
         b.putString("pdf_materi", materi.getPdf());
         Log.d("test", "berhasil diklik");
-//        intent.putExtras(b);
-//        v.getContext().startActivity(intent);
+        intent.putExtras(b);
+        v.getContext().startActivity(intent);
     }
 
     @Override
