@@ -38,7 +38,12 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".Pengumuman.Content" />
+        <activity android:name=".Pengumuman.Content">
+            <intent-filter>
+                <action android:name="pengumumanIntent" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".Login.UserGetterService"
@@ -51,7 +56,12 @@
         <activity android:name=".PDF.PDFActivityExample" />
         <activity android:name=".PDF.PDFViewer"
             android:exported="false" />
-        <activity android:name=".berita.BeritaActivity"></activity>
+        <activity android:name=".berita.BeritaActivity">
+            <intent-filter>
+                <action android:name="beritaIntent" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".calendar.CalendarDetail" />
         <activity android:name=".Materi.ContentMateri"></activity>
     </application>
