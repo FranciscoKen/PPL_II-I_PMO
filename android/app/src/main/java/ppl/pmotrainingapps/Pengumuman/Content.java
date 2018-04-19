@@ -24,6 +24,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import ppl.pmotrainingapps.Comment.CommentFragment;
+import ppl.pmotrainingapps.Home.HomeFragment;
 import ppl.pmotrainingapps.R;
 
 public class Content extends AppCompatActivity {
@@ -35,7 +36,9 @@ public class Content extends AppCompatActivity {
     private Fragment mCommentCardFragment;
     int id_pengumuman;
     int id_kegiatan;
+    int id;
 
+    public static JSONArray pengumuman;
     public static JSONArray kegiatan;
 
 
@@ -50,7 +53,9 @@ public class Content extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         int value = -1; // or other values
-        if(b != null){
+        id = Integer.parseInt(b.getString("id"));
+
+        if(id == -1){
             contentText.setText(b.getString("konten_teks"));
             headerText.setText(b.getString("judul"));
             dateText.setText(b.getString("tanggal"));
@@ -71,10 +76,51 @@ public class Content extends AppCompatActivity {
             } else{
                 new KegiatanTask(this).execute();
             }
+        } else{
+            new PengumumanTask(this).execute();
         }
         initComment();
     }
+    public void setContent(){
+        if(pengumuman != null) {
+            for(int iterator = 0; iterator < pengumuman.size(); iterator++) {
+                String hasilFetch = pengumuman.get(iterator).toString();
+                try{
+                    JSONObject json = (JSONObject) new JSONParser().parse(hasilFetch);
+                    int id_pengumuman = Integer.parseInt((String) json.get("id_pengumuman"));
+                    if(id_pengumuman == id){
+                        String judul = (String)json.get("judul");
+                        String tanggal = (String)json.get("tanggal");
+                        int id_kegiatan = json.get("kegiatan_id") != null ? Integer.parseInt((String) json.get("kegiatan_id")) : -1;
+                        String konten_teks = json.get("konten_teks") != null ? (String)json.get("konten_teks") : "";
+                        String konten_gambar = json.get("konten_gambar") != null ? (String)json.get("konten_gambar") : "";
 
+                        contentText.setText(konten_teks);
+                        headerText.setText(judul);
+                        dateText.setText(tanggal);
+
+                        if(!konten_gambar.equals("") ){
+                            RequestOptions options = new RequestOptions()
+                                    .centerCrop().override(1000,1000)
+                                    .placeholder(R.mipmap.ic_launcher_round)
+                                    .error(R.mipmap.ic_launcher_round);
+                            Glide.with(this).load(konten_gambar).apply(options).into(headerImage);
+                        }
+                        //tidak ada arr_kegiatan
+                        if(id_kegiatan == -1){
+                            findViewById(R.id.kegiatan).setVisibility(View.GONE);
+                        } else{
+                            new KegiatanTask(this).execute();
+                        }
+                    }
+
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+    }
     public void initComment(){
         final FragmentManager fragmentManager = getSupportFragmentManager();
         if (mCommentCardFragment == null) {
@@ -116,7 +162,39 @@ public class Content extends AppCompatActivity {
         }
 
     }
+    private static class PengumumanTask extends AsyncTask<Void, Void, Void> {
 
+        private WeakReference<Content> activityReference;
+
+        PengumumanTask(Content context) {
+            activityReference = new WeakReference<>(context);
+        }
+
+        protected Void doInBackground(Void... urls) {
+            try {
+                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllPengumuman.php");
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+                if (connection.getResponseCode() == 200) {
+                    InputStream responseBody = connection.getInputStream();
+                    JSONParser jsonParser = new JSONParser();
+                    Content.pengumuman = (JSONArray) jsonParser.parse(new InputStreamReader(responseBody, "UTF-8"));
+
+                } else {
+                    Log.d("test", "connection failed");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+            // get a reference to the activity if it is still there
+            Content activity = activityReference.get();
+            activity.setContent();
+        }
+    }
     private static class KegiatanTask extends AsyncTask<Void, Void, Void> {
 
         private WeakReference<Content> activityReference;

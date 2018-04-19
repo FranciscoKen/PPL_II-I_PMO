@@ -42,7 +42,10 @@ public class BeritaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_berita);
         Bundle b = getIntent().getExtras();
         berita_id = b.getInt("id");
-        new BeritaTask(this, b.getInt("id")).execute();
+        if (berita_id == 0) {
+            berita_id = Integer.parseInt(b.getString("id"));
+        }
+        new BeritaTask(this, berita_id).execute();
 //        WebView webview = (WebView) findViewById(R.id.berita_webview);
         String tempdata = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n" +
                 "<?xml encoding=\"utf-8\" ?><html><body><div style=\"text-align:center;\"></div>\n" +
