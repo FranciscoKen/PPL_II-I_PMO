@@ -25,4 +25,6 @@
     <string name="calendardetail_def_agenda_time">[tanggal]</string>
     <string name="sample_judul_materi">Latihan Kepemimpinan PMO</string>
     <string name="sample_topik_materi">Kepemimpinan</string>
+    <string name="sampleJudulMateri">Hello my name is dicky</string>
+    <string name="sampleKontenMateri">sample konten</string>
 </resources>

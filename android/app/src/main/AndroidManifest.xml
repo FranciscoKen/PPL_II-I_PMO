@@ -13,9 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login.LoginActivity">
-
-        </activity>
+        <activity android:name=".Login.LoginActivity"></activity>
         <activity android:name=".Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,16 +44,14 @@
         <service
             android:name=".Home.QuoteGetterService"
             android:exported="false" />
-        <activity android:name=".calendar.EventActivity"></activity>
-        <activity android:name="ppl.pmotrainingapps.PDF.PDFActivityExample"></activity>
-        <activity android:name="ppl.pmotrainingapps.PDF.PDFViewer"></activity>
 
-            android:exported="false" />
-
-        <activity android:name=".berita.BeritaActivity">
-
-        </activity>
-        <activity android:name=".calendar.CalendarDetail"/>
+        <activity android:name=".calendar.EventActivity" />
+        <activity android:name=".PDF.PDFActivityExample" />
+        <activity android:name=".PDF.PDFViewer" />
+        android:exported="false" />
+        <activity android:name=".berita.BeritaActivity"></activity>
+        <activity android:name=".calendar.CalendarDetail" />
+        <activity android:name=".Materi.ContentMateri"></activity>
     </application>
 
 </manifest>
