@@ -50,7 +50,7 @@ public class FullScreenMediaController extends MediaController {
         fullScreen.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(),ContentMateri.class);
+                Intent intent = new Intent(getContext(),VideoActivityExample.class);
 
                 if("y".equals(isFullScreen)){
                     intent.putExtra("fullScreenInd","");
