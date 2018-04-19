@@ -51,8 +51,6 @@ public class CalendarFragment extends Fragment {
     private SimpleDateFormat dateFormatForMonthOnly = new SimpleDateFormat("MM", Locale.getDefault());
     private SimpleDateFormat dateFormatForYearOnly = new SimpleDateFormat("yyyy", Locale.getDefault());
 
-
-
     private Calendar currentCalender = Calendar.getInstance(Locale.getDefault());
     private TextView monthHeader;
 
@@ -76,72 +74,11 @@ public class CalendarFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    //    @Override
-//    protected void onViewCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-////        setContentView(R.layout.activity_main);
-//        return new R.layout.calendar_layout;
-//
-//
-//        toolbar = (Toolbar) findViewById(getContext().R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-////        final ActionBar actionBar = getSupportActionBar();
-//////        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24px);
-//////        actionBar.setDisplayHomeAsUpEnabled(true);
-////        // Setting default toolbar title to empty
-////        actionBar.setNama(null);
-//
-//
-//        compactCalendarView = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
-//        compactCalendarView.shouldDrawIndicatorsBelowSelectedDays(true);
-//        compactCalendarView.setUseThreeLetterAbbreviation(true);
-//
-//        //set initial title
-//        //actionBar.setNama(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
-//
-//        //set title on calendar scroll
-//        compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
-//            @Override
-//            public void onDayClick(Date dateClicked) {
-//
-//
-//                Toast.makeText(MainActivity.this, "Date : " + dateClicked.toString(), Toast.LENGTH_SHORT).show();
-//
-//            }
-//
-//            @Override
-//            public void onMonthScroll(Date firstDayOfNewMonth) {
-//                // Changes toolbar title on monthChange
-//                //actionBar.setNama(dateFormatForMonth.format(firstDayOfNewMonth));
-//                toolbar.setNama(dateFormatForMonth.format(firstDayOfNewMonth));
-//
-//            }
-//
-//        });
-//
-//
-//        addDummyEvents();
-//
-//        //  gotoToday();
-//
-//
-//    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.calendar_layout, container, false);
 
-//        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-//        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-//        setSupportActionBar(toolbar);
-
-//        final ActionBar actionBar = getSupportActionBar();
-////        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24px);
-////        actionBar.setDisplayHomeAsUpEnabled(true);
-//        // Setting default toolbar title to empty
-//        actionBar.setNama(null);
         monthHeader = (TextView) view.findViewById(R.id.nama_bulan);
         compactCalendarView = (CompactCalendarView) view.findViewById(R.id.compactcalendar_view);
 
@@ -149,13 +86,11 @@ public class CalendarFragment extends Fragment {
         compactCalendarView.setUseThreeLetterAbbreviation(true);
 
         //set initial title
-        //actionBar.setNama(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
         monthHeader.setText(dateFormatForMonth.format(new Date()));
         //set title on calendar scroll
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date dateClicked) {
-                //Toast.makeText(getActivity(), "Date : " + dateClicked.toString(), Toast.LENGTH_SHORT).show();
                 if(hasilEvent != null){
                     @SuppressLint("SimpleDateFormat") SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
                     Intent event = new Intent(getActivity(), CalendarDetail.class);
@@ -164,27 +99,14 @@ public class CalendarFragment extends Fragment {
                 } else {
                     Toast.makeText(getActivity(),"Loading events.. please try again",Toast.LENGTH_LONG).show();
                 }
-
             }
 
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
                 // Changes toolbar title on monthChange
-                //actionBar.setNama(dateFormatForMonth.format(firstDayOfNewMonth));
-                //toolbar.setNama(dateFormatForMonth.format(firstDayOfNewMonth));
                 monthHeader.setText(dateFormatForMonth.format(firstDayOfNewMonth));
-//                int temp_local_month = Integer.parseInt(dateFormatForMonthOnly.format(firstDayOfNewMonth));
-//                int temp_local_year = Integer.parseInt(dateFormatForYearOnly.format(firstDayOfNewMonth));
-//                Log.d(TAG,"temp_local_month = "+temp_local_month);
-//                thisMonthDate = new RequestedDate(temp_local_month,temp_local_year);
-//                Log.d(TAG,dateFormatForMonth.format(firstDayOfNewMonth));
-//                //int thisMonth = firstDayOfNewMonth.getMonth();
-//                //Taro asynctask di sini buat get semua kegiatan bulan itu
-//                prepareCalendar(thisMonthDate);
             }
-
         });
-
 
         addDummyEvents();
 
@@ -246,7 +168,6 @@ public class CalendarFragment extends Fragment {
                     currentCalender.setTime(firstDayOfMonth);
                     Log.d(TAG,"month yg harusnya ga ngebug -> "+month);
                     currentCalender.set(Calendar.MONTH, month-1);
-//                    currentCalender.set(Calendar.DATE, temp_date_int);
                     currentCalender.add(Calendar.DATE, temp_date_int-1);
                     setToMidnight(currentCalender);
                     compactCalendarView.addEvent(new Event(Color.argb(255, 0, 253, 0), currentCalender.getTimeInMillis()), true);
@@ -258,10 +179,6 @@ public class CalendarFragment extends Fragment {
         } else {
             Log.d(TAG,"Value month <=-1");
         }
-
-
-        //iterasi hasil JSON array, masukin ke calendar
-//        compactCalendarView.addEvent(new Event(Color.argb(255, 0, 253, 0), currentCalender.getTimeInMillis()), false);
     }
 
     private void addThisMonthHariBesar(CompactCalendarView compactCalendarView,int month){
@@ -334,9 +251,6 @@ public class CalendarFragment extends Fragment {
             year = monthToget[0].getYear();
             try{
                 URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllMonthlyTanggalKegiatan.php?month="+month +"&year="+ year);
-                //Buat prototype
-//              URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllMonthlyTanggalKegiatan.php?month=4&year=2018");
-
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 if(connection.getResponseCode() == 200) {
@@ -355,9 +269,6 @@ public class CalendarFragment extends Fragment {
 
             try{
                 URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllMonthlyTanggalHariBesar.php?month="+month +"&year="+ year);
-                //Buat prototype
-//              URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllMonthlyTanggalKegiatan.php?month=4&year=2018");
-
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 if(connection.getResponseCode() == 200) {
