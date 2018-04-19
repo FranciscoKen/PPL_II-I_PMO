@@ -20,10 +20,12 @@ import android.widget.VideoView;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 import ppl.pmotrainingapps.PDF.FileDownloader;
 import ppl.pmotrainingapps.PDF.PDFActivityExample;
 import ppl.pmotrainingapps.PDF.PDFViewer;
+import ppl.pmotrainingapps.Pengumuman.Content;
 import ppl.pmotrainingapps.R;
 import ppl.pmotrainingapps.Video.FullScreenMediaController;
 import ppl.pmotrainingapps.Video.VideoActivityExample;
@@ -172,18 +174,18 @@ public class ContentMateri extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt("Position",videoView.getCurrentPosition());
-        videoView.pause();
+        //outState.putInt("Position",videoView.getCurrentPosition());
+        //videoView.pause();
     }
 
     //OnButton Download Click
     public void download(View v)
     {
-        new DownloadFile().execute(pdfURL, pdfFileName);
+        new DownloadFile(this).execute(pdfURL, pdfFileName);
     }
 
     //OnButton View Click
-    public void view(View v)
+    public void view()
     {
         File pdfFile = new File(Environment.getExternalStorageDirectory() + "/pmotrainingapps/" + pdfFileName);  // -> filename = maven.pdf
         Uri path = Uri.fromFile(pdfFile);
@@ -202,7 +204,11 @@ public class ContentMateri extends AppCompatActivity {
     }
 
     private class DownloadFile extends AsyncTask<String, Void, Void> {
+        private WeakReference<ContentMateri> activityReference;
 
+        DownloadFile(ContentMateri context) {
+            activityReference = new WeakReference<ContentMateri>(context);
+        }
         @Override
         protected Void doInBackground(String... strings) {
             String fileUrl = strings[0];   // -> http://maven.apache.org/maven-1.x/maven.pdf
@@ -226,21 +232,9 @@ public class ContentMateri extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Toast.makeText(ContentMateri.this, "Download complete", Toast.LENGTH_SHORT).show();
-
-            File pdfFile = new File(Environment.getExternalStorageDirectory() + "/pmotrainingapps/" + pdfFileName);  // -> filename = maven.pdf
-            Uri path = Uri.fromFile(pdfFile);
-            //Penggunaan intent
-            Intent pdfIntent = new Intent(getApplicationContext(), PDFViewer.class);
-            pdfIntent.setDataAndType(path, "application/pdf");
-            pdfIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            pdfIntent.putExtra("title", title);
-            pdfIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-            try{
-                startActivity(pdfIntent);
-            }catch(ActivityNotFoundException e){
-                Toast.makeText(ContentMateri.this, "No Application available to view PDF", Toast.LENGTH_SHORT).show();
-            }
+            // get a reference to the activity if it is still there
+            ContentMateri activity = activityReference.get();
+            activity.view();
         }
     }
 }
