@@ -21,6 +21,8 @@ public class VideoActivityExample extends AppCompatActivity{
     private ProgressDialog mDialog;
     private VideoView videoView;
     private ImageButton mPlayButton;
+    private int position = 0;
+    private int id_video;
 
     String videoURL = "http://pplk2a.if.itb.ac.id/ppl/uploads/video/Raft.mp4";
 
@@ -28,50 +30,9 @@ public class VideoActivityExample extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         videoView = (VideoView) findViewById(R.id.VideoView);
         mPlayButton = (ImageButton) findViewById(R.id.play_button);
-
-        String fullscreen = getIntent().getStringExtra("fullScreenInd");
-        if("y".equals(fullscreen)){
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            //getSupportActionBar().hide();
-//            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        } else {
-//            setRequestedOrientat/ion(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
-
-        mPlayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(videoView.isPlaying()){
-
-                }else {
-                    mDialog = new ProgressDialog(VideoActivityExample.this);
-                    mDialog.setMessage("Please wait...");
-                    mDialog.setCanceledOnTouchOutside(false);
-                    mDialog.show();
-
-                    try{
-                        if(!videoView.isPlaying()){
-
-                            //original window
-                            Uri uri = Uri.parse(videoURL);
-                            videoView.setVideoURI(uri);
-                            videoView.start();
-                        } else {
-                            videoView.pause();
-                        }
-
-                        mPlayButton.setVisibility(View.GONE);
-
-                    } catch (Exception e){
-
-                    }
-                }
-            }
-        });
 
         FullScreenMediaController vidControl = new FullScreenMediaController(this);
         vidControl.setAnchorView(videoView);
@@ -86,16 +47,76 @@ public class VideoActivityExample extends AppCompatActivity{
                 videoView.start();
             }
         });
-    }
 
-    private boolean isLandscape() {
-        Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
-        int rotation = display.getRotation();
-        if(rotation == Surface.ROTATION_90 || rotation == Surface.ROTATION_270){
-            Log.d("IS LANDSCAPE", "IT IS LANDSCAPE");
-            return true;
+        String fullscreen = getIntent().getStringExtra("fullScreenInd");
+        if("y".equals(fullscreen)){
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            videoView.seekTo(position);
+            Log.d("VIDEO","LANDSCAPE POSITION ="+position);
+            if(position == 0){
+                videoView.start();
+            } else {
+                videoView.pause();
+            }
+        } else {
         }
 
-        return false;
+        mPlayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startVideo();
+            }
+        });
     }
+
+    public void startVideo(){
+        if(videoView.isPlaying()){
+
+        }else {
+//            videoURL = hasilVideo.toString();
+            mDialog = new ProgressDialog(VideoActivityExample.this);
+            mDialog.setMessage("Please wait...");
+            mDialog.setCanceledOnTouchOutside(false);
+            mDialog.show();
+
+            try{
+                if(!videoView.isPlaying()){
+
+                    //original window
+                    Uri uri = Uri.parse(videoURL);
+                    videoView.setVideoURI(uri);
+                    videoView.seekTo(position);
+                    if(position == 0){
+                        videoView.start();
+                    } else {
+                        videoView.pause();
+                    }
+
+                } else {
+                    videoView.pause();
+                }
+
+                mPlayButton.setVisibility(View.GONE);
+
+            } catch (Exception e){
+
+            }
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        position = savedInstanceState.getInt("Position");
+        videoView.seekTo(position);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("Position",videoView.getCurrentPosition());
+        videoView.pause();
+    }
+
 }

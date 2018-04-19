@@ -33,15 +33,17 @@ public class FullScreenMediaController extends MediaController {
 
         params.gravity = Gravity.RIGHT;
 
-        params.rightMargin = 80;
+        params.rightMargin = 20;
         addView(fullScreen,params);
 
         isFullScreen =  ((Activity)getContext()).getIntent().getStringExtra("fullScreenInd");
 
         if("y".equals(isFullScreen)){
             fullScreen.setImageResource(R.drawable.ic_fullscreen_exit);
+            fullScreen.setBackgroundResource(0);
         } else {
             fullScreen.setImageResource(R.drawable.ic_fullscreen);
+            fullScreen.setBackgroundResource(0);
         }
 
         fullScreen.setOnClickListener(new OnClickListener() {
