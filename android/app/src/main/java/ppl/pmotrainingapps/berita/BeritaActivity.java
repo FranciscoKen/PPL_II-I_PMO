@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -25,17 +27,21 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import ppl.pmotrainingapps.Comment.CommentFragment;
 import ppl.pmotrainingapps.R;
 
 public class BeritaActivity extends AppCompatActivity {
 
     public static JSONObject beritaContent = null;
+    private Fragment mCommentCardFragment;
+    private int berita_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_berita);
         Bundle b = getIntent().getExtras();
+        berita_id = b.getInt("id");
         new BeritaTask(this, b.getInt("id")).execute();
 //        WebView webview = (WebView) findViewById(R.id.berita_webview);
         String tempdata = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n" +
@@ -83,11 +89,19 @@ public class BeritaActivity extends AppCompatActivity {
         t.setPadding(30,20,30,20);
         t.setTextColor(Color.BLACK);
         l.addView(t);
-        // buka koneksi
-        final BeritaActivity berita = this;
 
+        initComment();
     }
+    public void initComment(){
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+        if (mCommentCardFragment == null) {
+            mCommentCardFragment = CommentFragment.newInstance(CommentFragment.JENIS_BERITA, berita_id);
 
+            fragmentManager.beginTransaction()
+                    .replace(R.id.product_comment_fragment_container, mCommentCardFragment)
+                    .commit();
+        }
+    }
     private static class BeritaTask extends AsyncTask<Void, Void, Void> {
 
         private WeakReference<BeritaActivity> activityReference;

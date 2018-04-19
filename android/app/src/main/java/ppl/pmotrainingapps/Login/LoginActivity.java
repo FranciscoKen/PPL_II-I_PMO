@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -83,7 +84,9 @@ public class LoginActivity extends AppCompatActivity {
 //                        JSONObject password = (JSONObject) json.get("passwd");
                     String usernameString = (String)json.get("username");
                     String passwordString = (String)json.get("passwd");
-                    int id = (int)json.get("id");
+
+                    int id = Integer.parseInt((String)json.get("id"));
+
                     if((usernameString.equals(namaInput)) && (passwordString.equals(NIPInput))){
                         Log.d("hore", "berhasil login");
                         berhasilLogin = true;
