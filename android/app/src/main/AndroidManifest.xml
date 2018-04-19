@@ -47,8 +47,8 @@
 
         <activity android:name=".calendar.EventActivity" />
         <activity android:name=".PDF.PDFActivityExample" />
-        <activity android:name=".PDF.PDFViewer" />
-        android:exported="false" />
+        <activity android:name=".PDF.PDFViewer"
+            android:exported="false" />
         <activity android:name=".berita.BeritaActivity"></activity>
         <activity android:name=".calendar.CalendarDetail" />
         <activity android:name=".Materi.ContentMateri"></activity>
