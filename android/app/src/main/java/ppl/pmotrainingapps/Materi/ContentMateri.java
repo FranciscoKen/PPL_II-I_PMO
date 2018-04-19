@@ -83,7 +83,7 @@ public class ContentMateri extends AppCompatActivity {
         }
 
     }
-    public void playVideo(){
+    public void playVideo(View v){
         Intent intent = new Intent(this, VideoActivityExample.class);
         intent.putExtra(EXTRA_MESSAGE, videoURL);
         startActivity(intent);
@@ -92,6 +92,7 @@ public class ContentMateri extends AppCompatActivity {
     //OnButton Download Click
     public void download(View v)
     {
+        Toast.makeText(ContentMateri.this, "Download started", Toast.LENGTH_SHORT).show();
         new DownloadFile(this).execute(pdfURL, pdfFileName);
     }
 
