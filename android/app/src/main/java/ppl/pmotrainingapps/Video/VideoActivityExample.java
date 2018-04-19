@@ -29,7 +29,7 @@ public class VideoActivityExample extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_video);
 
         videoView = (VideoView) findViewById(R.id.VideoView);
         mPlayButton = (ImageButton) findViewById(R.id.play_button);
