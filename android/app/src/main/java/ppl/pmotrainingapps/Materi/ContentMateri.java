@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +40,7 @@ public class ContentMateri extends AppCompatActivity {
     private String pdfFileName = "materi.pdf";
     private int position = 0;
     private int id_video;
+    public static final String EXTRA_MESSAGE = "Send Video URL";
     String videoURL;
 
     @Override
@@ -57,7 +59,6 @@ public class ContentMateri extends AppCompatActivity {
         if(b != null){
             judulMateri.setText(b.getString("judul_materi"));
             String konten = b.getString("konten_materi");
-            Log.d("test", "konten: "+konten);
             if(konten==null){
                 findViewById(R.id.kontenMateri).setVisibility(View.GONE);
             }else{
@@ -65,57 +66,13 @@ public class ContentMateri extends AppCompatActivity {
             }
 
             videoURL = b.getString("video_materi");
-            Log.d("videoUrl:", "videourl: "+videoURL);
             if(videoURL == null){
                 findViewById(R.id.VideoViewMateri).setVisibility(View.GONE);
                 findViewById(R.id.playButtonMateri).setVisibility(View.GONE);
-            }else{
-                videoView = (VideoView) findViewById(R.id.VideoViewMateri);
-                mPlayButton = (ImageButton) findViewById(R.id.playButtonMateri);
-
-                FullScreenMediaController vidControl = new FullScreenMediaController(this);
-                vidControl.setAnchorView(videoView);
-                videoView.setMediaController(vidControl);
-
-                videoView.requestFocus();
-                Log.d("test", "halohalo");
-                videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                    @Override
-                    public void onPrepared(MediaPlayer mediaPlayer) {
-                        Log.d("test","masuk sini gan");
-                        mDialog.dismiss();
-                        mediaPlayer.setLooping(true);
-                        videoView.start();
-                    }
-                });
-
-                String fullscreen = getIntent().getStringExtra("fullScreenInd");
-                if(fullscreen != null){
-                    if("y".equals(fullscreen)){
-                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                        videoView.seekTo(position);
-                        Log.d("VIDEO","LANDSCAPE POSITION ="+position);
-                        if(position == 0){
-                            videoView.start();
-                        } else {
-                            videoView.pause();
-                        }
-                    } else {
-                    }
-
-
-                }
-                mPlayButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d("test","akan distart video");
-                        startVideo();
-                    }
-                });
             }
 
             pdfURL = b.getString("pdf_materi");
+
             if(pdfURL==null){
                 findViewById(R.id.buttonDownload).setVisibility(View.GONE);
             }else{
@@ -125,55 +82,10 @@ public class ContentMateri extends AppCompatActivity {
 
     }
 
-    public void startVideo(){
-        if(videoView.isPlaying()){
-
-        }else {
-//            videoURL = hasilVideo.toString();
-            mDialog = new ProgressDialog(ContentMateri.this);
-            mDialog.setMessage("Please wait...");
-            mDialog.setCanceledOnTouchOutside(false);
-            mDialog.show();
-
-            try{
-                if(!videoView.isPlaying()){
-                    Log.d("videoURL:", "videoURL awal: "+videoURL);
-                    //original window
-                    Uri uri = Uri.parse(videoURL);
-                    videoView.setVideoURI(uri);
-                    videoView.seekTo(position);
-                    Log.d("videoURL:", "videoURL: "+videoURL + " position: "+position);
-                    //mDialog.dismiss();
-                    if(position == 0){
-                        videoView.start();
-                    } else {
-                        videoView.pause();
-                    }
-
-                } else {
-                    videoView.pause();
-                }
-
-                mPlayButton.setVisibility(View.GONE);
-
-            } catch (Exception e){
-
-            }
-        }
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        position = savedInstanceState.getInt("Position");
-        videoView.seekTo(position);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("Position",videoView.getCurrentPosition());
-        videoView.pause();
+    public void playVideo(){
+        Intent intent = new Intent(this, VideoActivityExample.class);
+        intent.putExtra(EXTRA_MESSAGE, videoURL);
+        startActivity(intent);
     }
 
     //OnButton Download Click
@@ -228,6 +140,7 @@ public class ContentMateri extends AppCompatActivity {
             Toast.makeText(ContentMateri.this, "Download complete", Toast.LENGTH_SHORT).show();
 
             File pdfFile = new File(Environment.getExternalStorageDirectory() + "/pmotrainingapps/" + pdfFileName);  // -> filename = maven.pdf
+
             Uri path = Uri.fromFile(pdfFile);
             //Penggunaan intent
             Intent pdfIntent = new Intent(getApplicationContext(), PDFViewer.class);

@@ -1,6 +1,7 @@
 package ppl.pmotrainingapps.Video;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
+import ppl.pmotrainingapps.Materi.ContentMateri;
 import ppl.pmotrainingapps.R;
 
 public class VideoActivityExample extends AppCompatActivity{
@@ -30,6 +32,10 @@ public class VideoActivityExample extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
+
+        Intent intent = getIntent();
+
+        videoURL = intent.getStringExtra(ContentMateri.EXTRA_MESSAGE);
 
         videoView = (VideoView) findViewById(R.id.VideoView);
         mPlayButton = (ImageButton) findViewById(R.id.play_button);

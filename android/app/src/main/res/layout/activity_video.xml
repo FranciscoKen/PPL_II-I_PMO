@@ -8,8 +8,7 @@
 
     <FrameLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-        android:layout_marginRight="50dp">
+    android:layout_height="wrap_content">
 
         <VideoView
             android:id="@+id/VideoView"

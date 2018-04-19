@@ -10,7 +10,7 @@ package ppl.pmotrainingapps.PDF;
     import java.net.URL;
 
 public class FileDownloader {
-    private static final int  MEGABYTE = 1024 * 1024;
+    private static final int  MEGABYTE = 10 * 1024 * 1024;
 
     public static void downloadFile(String fileUrl, File directory){
         try {
