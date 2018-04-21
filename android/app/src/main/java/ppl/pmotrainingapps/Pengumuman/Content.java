@@ -76,11 +76,11 @@ public class Content extends AppCompatActivity {
             } else{
                 new KegiatanTask(this).execute();
             }
+            initComment();
+
         } else{
-            id_pengumuman = id;
             new PengumumanTask(this).execute();
         }
-        initComment();
     }
     public void setContent(){
         if(pengumuman != null) {
@@ -113,6 +113,8 @@ public class Content extends AppCompatActivity {
                         } else{
                             new KegiatanTask(this).execute();
                         }
+                        id_pengumuman = id;
+                        initComment();
                     }
 
                 }catch (Exception e) {
