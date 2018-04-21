@@ -102,6 +102,7 @@ public class CommentFragment extends Fragment {
         comment_view.setItemAnimator(new DefaultItemAnimator());
         comment_view.setAdapter(adapter);
         comment_view.setFocusable(false);
+        comment_view.setNestedScrollingEnabled(false);
         final TextView commentInput = view.findViewById(R.id.comment_input);
         final ImageButton sendButton = view.findViewById(R.id.send_button);
 

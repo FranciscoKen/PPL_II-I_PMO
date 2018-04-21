@@ -25,7 +25,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="15dp"
-                android:text="Hari Minggu, 26 September 2018 akan dilaksanakan kepelatihan kepemimpinan. Seluruh Tendik dan dosen wajib mengikuti."
+                android:text=""
                 android:textColor="@color/colorHeaderText"
                 android:textSize="25sp"
                 android:textStyle="bold" />
@@ -37,7 +37,7 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:text="20 September 2018"
+                android:text=""
                 android:textColor="@color/colorGray"
                 android:textSize="18sp" />
 
@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:text="Pelatihan ini akan dibawakan oleh 4 orang pembicara yaitu Cisco, Jekk, Dicky, dan Arya. Di acara ini seluruh Tendik dan Dosen diwajibkan untuk hadir karena merupakan bagian dari assesment."
+                android:text=""
                 android:textColor="@color/colorHeaderText"
                 android:textSize="17sp"
                 />

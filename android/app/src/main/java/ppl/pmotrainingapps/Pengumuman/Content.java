@@ -53,7 +53,7 @@ public class Content extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         int value = -1; // or other values
-        id = Integer.parseInt(b.getString("id"));
+        id = b.getString("id") == null ? -1 : Integer.parseInt(b.getString("id"));
 
         if(id == -1){
             contentText.setText(b.getString("konten_teks"));
@@ -77,6 +77,7 @@ public class Content extends AppCompatActivity {
                 new KegiatanTask(this).execute();
             }
         } else{
+            id_pengumuman = id;
             new PengumumanTask(this).execute();
         }
         initComment();
@@ -87,8 +88,8 @@ public class Content extends AppCompatActivity {
                 String hasilFetch = pengumuman.get(iterator).toString();
                 try{
                     JSONObject json = (JSONObject) new JSONParser().parse(hasilFetch);
-                    int id_pengumuman = Integer.parseInt((String) json.get("id_pengumuman"));
-                    if(id_pengumuman == id){
+                    int id_peng = Integer.parseInt((String) json.get("id_pengumuman"));
+                    if(id_peng == id){
                         String judul = (String)json.get("judul");
                         String tanggal = (String)json.get("tanggal");
                         int id_kegiatan = json.get("kegiatan_id") != null ? Integer.parseInt((String) json.get("kegiatan_id")) : -1;
