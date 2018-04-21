@@ -74,6 +74,11 @@ public class Content extends AppCompatActivity {
             if(id_kegiatan == -1){
                 findViewById(R.id.kegiatan).setVisibility(View.GONE);
             } else{
+                ((TextView)findViewById(R.id.namakegiatan)).setText(Integer.toString(id_kegiatan));
+                ((TextView)findViewById(R.id.targetpeserta)).setText("");
+                ((TextView)findViewById(R.id.waktu)).setText("");
+                ((TextView)findViewById(R.id.deskripsi)).setText("");
+                ((TextView)findViewById(R.id.lokasi)).setText("");
                 new KegiatanTask(this).execute();
             }
             initComment();

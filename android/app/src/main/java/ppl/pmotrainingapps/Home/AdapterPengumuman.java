@@ -60,7 +60,6 @@ public class AdapterPengumuman extends RecyclerView.Adapter<AdapterPengumuman.My
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Pengumuman pengumuman = pengumumanList.get(position);
-        final int id = pengumuman.getId_kegiatan();
         holder.judul.setText(pengumuman.getJudul());
         holder.tanggal.setText(pengumuman.getTanggal());
         holder.itemView.setOnClickListener(new View.OnClickListener() {

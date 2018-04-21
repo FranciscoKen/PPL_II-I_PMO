@@ -4,11 +4,14 @@ import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
+import ppl.pmotrainingapps.Manifest;
 import ppl.pmotrainingapps.PDF.FileDownloader;
 import ppl.pmotrainingapps.PDF.PDFActivityExample;
 import ppl.pmotrainingapps.PDF.PDFViewer;
@@ -44,6 +48,10 @@ public class ContentMateri extends AppCompatActivity {
     private int id_video;
     public static final String EXTRA_MESSAGE = "Send Video URL";
     String videoURL;
+
+
+    static final Integer WRITE_EXST = 0x3;
+    static final Integer READ_EXST = 0x4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +101,12 @@ public class ContentMateri extends AppCompatActivity {
     public void download(View v)
     {
         Toast.makeText(ContentMateri.this, "Download started", Toast.LENGTH_SHORT).show();
-        new DownloadFile(this).execute(pdfURL, pdfFileName);
+        askForPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE,WRITE_EXST);
+        askForPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE,READ_EXST);
+        if (ContextCompat.checkSelfPermission(ContentMateri.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(ContentMateri.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+            new DownloadFile(this).execute(pdfURL, pdfFileName);
+        }
     }
 
     //OnButton View Click
@@ -112,6 +125,19 @@ public class ContentMateri extends AppCompatActivity {
             startActivity(pdfIntent);
         }catch(ActivityNotFoundException e){
             Toast.makeText(ContentMateri.this, "No Application available to view PDF", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void askForPermission(String permission, Integer requestCode) {
+        if (ContextCompat.checkSelfPermission(ContentMateri.this, permission) != PackageManager.PERMISSION_GRANTED) {
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(ContentMateri.this, permission)) {
+                //This is called if user has denied the permission before
+                //In this case I am just asking the permission again
+                ActivityCompat.requestPermissions(ContentMateri.this, new String[]{permission}, requestCode);
+            } else {
+                ActivityCompat.requestPermissions(ContentMateri.this, new String[]{permission}, requestCode);
+            }
         }
     }
 
@@ -148,5 +174,7 @@ public class ContentMateri extends AppCompatActivity {
             ContentMateri activity = activityReference.get();
             activity.view();
         }
+
+
     }
 }
