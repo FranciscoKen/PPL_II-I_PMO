@@ -15,7 +15,10 @@ import ppl.pmotrainingapps.calendar.CalendarFragment;
  */
 public class PagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
-
+    HomeFragment mHome;
+    BeritaFragment mBerita;
+    CalendarFragment mCalendar;
+    MateriFragment mMateri;
     public PagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
@@ -25,13 +28,17 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new HomeFragment();
+                mHome = mHome != null ? mHome : new HomeFragment();
+                return mHome;
             case 1:
-                return new BeritaFragment();
+                mBerita = mBerita != null ? mBerita : new BeritaFragment();
+                return mBerita;
             case 2:
-                return new CalendarFragment();
+                mCalendar = mCalendar != null ? mCalendar : new CalendarFragment();
+                return mCalendar;
             case 3:
-                return new MateriFragment();
+                mMateri = mMateri != null ? mMateri : new MateriFragment();
+                return mMateri;
             default:
                 return null;
         }

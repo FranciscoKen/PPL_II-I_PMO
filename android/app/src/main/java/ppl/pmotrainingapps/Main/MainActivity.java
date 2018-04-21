@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         // Setting a listener for clicks.
+        viewPager.setOffscreenPageLimit(3);
         viewPager.addOnPageChangeListener(new
                 TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

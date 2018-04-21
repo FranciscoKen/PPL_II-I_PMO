@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -47,6 +48,7 @@ public class BeritaFragment extends Fragment {
     private NestedScrollView nestedScrollView;
     private List<AdapterBerita.Berita> beritaList;
     private AdapterBerita adapterBerita;
+    private SwipeRefreshLayout mrefreshLayout;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -89,7 +91,14 @@ public class BeritaFragment extends Fragment {
         nestedScrollView.requestFocus();
         beritaList = new ArrayList<>();
         adapterBerita = new AdapterBerita(getContext(), beritaList);
-
+        mrefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+        mrefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                prepareBerita();
+            }
+        });
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -106,6 +115,7 @@ public class BeritaFragment extends Fragment {
 
     public void setBerita(){
         if(berita != null) {
+            beritaList.clear();
             for(int iterator = 0; iterator < berita.size(); iterator++) {
                 String hasilFetch = berita.get(iterator).toString();
 
@@ -125,6 +135,8 @@ public class BeritaFragment extends Fragment {
 
         }
         adapterBerita.notifyDataSetChanged();
+        mrefreshLayout.setRefreshing(false);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

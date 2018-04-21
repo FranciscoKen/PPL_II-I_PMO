@@ -4,82 +4,87 @@
     android:layout_height="match_parent"
     tools:context="ppl.pmotrainingapps.Home.HomeFragment">
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/nestedscroll"
-        >
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/nestedscroll"
+            >
 
             <RelativeLayout
-                android:id="@+id/quotes_container"
                 android:layout_width="match_parent"
-                android:layout_height="180dp">
+                android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/quotes_frame"
+                <RelativeLayout
+                    android:id="@+id/quotes_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@null"
-                    android:scaleType="fitXY"
-                    android:layout_margin="10dp"
-                    />
+                    android:layout_height="180dp">
+
+                    <ImageView
+                        android:id="@+id/quotes_frame"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@null"
+                        android:scaleType="fitXY"
+                        android:layout_margin="10dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/quotes_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="40dp"
+                        android:textColor="@color/colorText"
+                        android:text="Tidak ada quotes"
+                        android:textSize="17dp"
+                        />
+                    <TextView
+                        android:id="@+id/quotes_author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="40dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_alignRight="@+id/quotes_content"
+                        android:layout_below="@+id/quotes_content"
+                        android:textColor="@color/colorText"
+                        android:textSize="16dp"
+                        android:text="@string/Quote_author" />
+
+                </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/quotes_content"
+                    android:id="@+id/header_pengumuman"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginTop="40dp"
-                    android:textColor="@color/colorText"
-                    android:text="Tidak ada quotes"
-                    android:textSize="17dp"
-                    />
-                <TextView
-                    android:id="@+id/quotes_author"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="40dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_alignRight="@+id/quotes_content"
-                    android:layout_below="@+id/quotes_content"
-                    android:textColor="@color/colorText"
-                    android:textSize="16dp"
-                    android:text="@string/Quote_author" />
+                    android:layout_below="@+id/quotes_container"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/header_pengumuman"
+                    android:textAlignment="center"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorHeaderText"/>
 
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/header_pengumuman"
+                    android:clipToPadding="false"
+                    android:scrollbars="vertical"
+
+
+                    />
             </RelativeLayout>
-
-            <TextView
-                android:id="@+id/header_pengumuman"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/quotes_container"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/header_pengumuman"
-                android:textAlignment="center"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorHeaderText"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/header_pengumuman"
-                android:clipToPadding="false"
-                android:scrollbars="vertical"
-
-
-                />
-        </RelativeLayout>
-    </android.support.v4.widget.NestedScrollView>
-
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

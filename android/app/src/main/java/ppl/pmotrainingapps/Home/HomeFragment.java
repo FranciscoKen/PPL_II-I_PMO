@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -61,7 +62,7 @@ public class HomeFragment extends Fragment {
     private List<Pengumuman> pengumumanList;
     private TextView quote_content;
     private TextView quote_author;;
-
+    private SwipeRefreshLayout mrefreshLayout;
     public static JSONObject hasilQuote = null;
 
     public HomeFragment() {
@@ -84,7 +85,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState); Log.d("CallTest","OnCreate");
     }
 
     @Override
@@ -96,11 +97,21 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+        Log.d("CallTest","OnCreateView");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         nestedScrollView = (NestedScrollView) view.findViewById(R.id.nestedscroll);
+        mrefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+        mrefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                preparePengumuman();
+                prepareQuotes();
+            }
+        });
         recyclerView.setFocusable(false);
         nestedScrollView.requestFocus();
         pengumumanList = new ArrayList<>();
@@ -162,6 +173,7 @@ public class HomeFragment extends Fragment {
 
     public void setPengumuman(){
         if(pengumuman != null) {
+            pengumumanList.clear();
             for(int iterator = 0; iterator < pengumuman.size(); iterator++) {
                 String hasilFetch = pengumuman.get(iterator).toString();
 
@@ -184,6 +196,7 @@ public class HomeFragment extends Fragment {
 
         }
         adapter.notifyDataSetChanged();
+        mrefreshLayout.setRefreshing(false);
     }
     /**
      * RecyclerView item decoration - give equal margin around grid item

@@ -4,27 +4,29 @@
     android:layout_height="match_parent"
     tools:context="ppl.pmotrainingapps.berita.BeritaFragment">
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/berita_nestedscroll"
-        >
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/berita_nestedscroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/berita_recycler_view"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:scrollbars="vertical"
+                android:layout_height="wrap_content">
 
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/berita_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:scrollbars="vertical"
 
-                />
-        </RelativeLayout>
-    </android.support.v4.widget.NestedScrollView>
-
+                    />
+            </RelativeLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>

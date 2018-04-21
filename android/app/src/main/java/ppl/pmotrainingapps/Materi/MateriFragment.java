@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.NestedScrollingChild;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -47,6 +48,7 @@ public class MateriFragment extends Fragment {
     private NestedScrollView nestedScrollView;
     private AdapterMateri adapterMateri;
     private List<Materi> materiList;
+    private SwipeRefreshLayout mrefreshLayout;
 
     public MateriFragment() {
         // Required empty public constructor
@@ -82,7 +84,14 @@ public class MateriFragment extends Fragment {
         nestedScrollView.requestFocus();
         materiList = new ArrayList<>();
         adapterMateri = new AdapterMateri(getContext(), materiList);
-
+        mrefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+        mrefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                prepareMateri();
+            }
+        });
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -104,6 +113,7 @@ public class MateriFragment extends Fragment {
     }
     public void setMateri() {
         if(materi != null) {
+            materiList.clear();
             for(int iterator = 0; iterator < materi.size(); iterator++) {
                 String hasilFetch = materi.get(iterator).toString();
 
@@ -123,6 +133,8 @@ public class MateriFragment extends Fragment {
                 }
             }
             adapterMateri.notifyDataSetChanged();
+            mrefreshLayout.setRefreshing(false);
+
         }
     }
 
