@@ -140,7 +140,8 @@ public class BeritaActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             // get a reference to the activity if it is still there
             BeritaActivity activity = activityReference.get();
-            activity.displayBerita();
+            if(!activity.isDestroyed())
+                activity.displayBerita();
         }
     }
 

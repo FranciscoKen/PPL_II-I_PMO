@@ -100,8 +100,11 @@ public class ContentMateri extends AppCompatActivity {
         startActivity(intent);
     }
     public void setThumbnail(){
-        ImageView videoThumb = (ImageView) findViewById(R.id.playsButtonMateri);
-        Glide.with(this).load(thumbnail).into(videoThumb);
+        if(this != null){
+            ImageView videoThumb = (ImageView) findViewById(R.id.playsButtonMateri);
+            Glide.with(this).load(thumbnail).into(videoThumb);
+        }
+
     }
     //OnButton Download Click
     public void download(View v)
@@ -227,6 +230,7 @@ public class ContentMateri extends AppCompatActivity {
             super.onPostExecute(A2);
             // get a reference to the activity if it is still there
             ContentMateri activity = activityReference.get();
+            if(!activity.isDestroyed())
             activity.setThumbnail();
         }
     }

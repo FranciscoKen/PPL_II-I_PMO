@@ -200,7 +200,8 @@ public class Content extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             // get a reference to the activity if it is still there
             Content activity = activityReference.get();
-            activity.setContent();
+            if(!activity.isDestroyed())
+                activity.setContent();
         }
     }
     private static class KegiatanTask extends AsyncTask<Void, Void, Void> {
@@ -234,7 +235,8 @@ public class Content extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             // get a reference to the activity if it is still there
             Content activity = activityReference.get();
-            activity.setKegiatan();
+            if(!activity.isDestroyed())
+                activity.setKegiatan();
         }
     }
 }
