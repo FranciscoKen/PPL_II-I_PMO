@@ -48,6 +48,7 @@ public class ContentMateri extends AppCompatActivity {
     private int id_video;
     public static final String EXTRA_MESSAGE = "Send Video URL";
     String videoURL;
+    Bitmap thumbnail;
 
 
     static final Integer WRITE_EXST = 0x3;
@@ -79,9 +80,7 @@ public class ContentMateri extends AppCompatActivity {
             if(videoURL == null){
                 findViewById(R.id.playButtonMateri).setVisibility(View.GONE);
             } else {
-                ImageView videoThumb = (ImageView) findViewById(R.id.playsButtonMateri);
-                Bitmap bitmap2 = retriveVideoFrameFromVideo(videoURL);
-                Glide.with(this).load(bitmap2).into(videoThumb);
+                new DownloadThumbnail(this).execute();
             }
 
 
@@ -100,7 +99,10 @@ public class ContentMateri extends AppCompatActivity {
         intent.putExtra(EXTRA_MESSAGE, videoURL);
         startActivity(intent);
     }
-
+    public void setThumbnail(){
+        ImageView videoThumb = (ImageView) findViewById(R.id.playsButtonMateri);
+        Glide.with(this).load(thumbnail).into(videoThumb);
+    }
     //OnButton Download Click
     public void download(View v)
     {
@@ -208,5 +210,24 @@ public class ContentMateri extends AppCompatActivity {
         }
 
 
+    }
+    private class DownloadThumbnail extends AsyncTask<Void, Void, Void> {
+
+        private WeakReference<ContentMateri> activityReference;
+
+        DownloadThumbnail(ContentMateri context) {
+            activityReference = new WeakReference<ContentMateri>(context);
+        }
+        @Override
+        protected Void doInBackground(Void... strings) {
+            thumbnail = retriveVideoFrameFromVideo(videoURL);
+            return null;
+        }
+        protected void onPostExecute(Void A2) {
+            super.onPostExecute(A2);
+            // get a reference to the activity if it is still there
+            ContentMateri activity = activityReference.get();
+            activity.setThumbnail();
+        }
     }
 }
