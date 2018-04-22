@@ -3,37 +3,37 @@ package ppl.pmotrainingapps.Materi;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.bumptech.glide.Glide;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
 
-import ppl.pmotrainingapps.Manifest;
 import ppl.pmotrainingapps.PDF.FileDownloader;
-import ppl.pmotrainingapps.PDF.PDFActivityExample;
 import ppl.pmotrainingapps.PDF.PDFViewer;
-import ppl.pmotrainingapps.Pengumuman.Content;
 import ppl.pmotrainingapps.R;
-import ppl.pmotrainingapps.Video.FullScreenMediaController;
-import ppl.pmotrainingapps.Video.VideoActivityExample;
+import ppl.pmotrainingapps.Video.VideoActivity;
 
 public class ContentMateri extends AppCompatActivity {
     private TextView judulMateri;
@@ -77,9 +77,13 @@ public class ContentMateri extends AppCompatActivity {
 
             videoURL = b.getString("video_materi");
             if(videoURL == null){
-                findViewById(R.id.VideoViewMateri).setVisibility(View.GONE);
                 findViewById(R.id.playButtonMateri).setVisibility(View.GONE);
+            } else {
+                ImageView videoThumb = (ImageView) findViewById(R.id.playsButtonMateri);
+                Bitmap bitmap2 = retriveVideoFrameFromVideo(videoURL);
+                Glide.with(this).load(bitmap2).into(videoThumb);
             }
+
 
             pdfURL = b.getString("pdf_materi");
 
@@ -92,7 +96,7 @@ public class ContentMateri extends AppCompatActivity {
 
     }
     public void playVideo(View v){
-        Intent intent = new Intent(this, VideoActivityExample.class);
+        Intent intent = new Intent(this, VideoActivity.class);
         intent.putExtra(EXTRA_MESSAGE, videoURL);
         startActivity(intent);
     }
@@ -139,6 +143,34 @@ public class ContentMateri extends AppCompatActivity {
                 ActivityCompat.requestPermissions(ContentMateri.this, new String[]{permission}, requestCode);
             }
         }
+    }
+
+    public static Bitmap retriveVideoFrameFromVideo(String videoPath)
+    {
+        Bitmap bitmap = null;
+        MediaMetadataRetriever mediaMetadataRetriever = null;
+        try
+        {
+            mediaMetadataRetriever = new MediaMetadataRetriever();
+            if (Build.VERSION.SDK_INT >= 14)
+                mediaMetadataRetriever.setDataSource(videoPath, new HashMap<String, String>());
+            else
+                mediaMetadataRetriever.setDataSource(videoPath);
+            //   mediaMetadataRetriever.setDataSource(videoPath);
+            bitmap = mediaMetadataRetriever.getFrameAtTime(1, MediaMetadataRetriever.OPTION_CLOSEST);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            if (mediaMetadataRetriever != null)
+            {
+                mediaMetadataRetriever.release();
+            }
+        }
+        return bitmap;
     }
 
     private class DownloadFile extends AsyncTask<String, Void, Void> {

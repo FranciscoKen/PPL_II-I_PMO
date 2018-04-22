@@ -9,9 +9,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.MediaController;
 
-import ppl.pmotrainingapps.Materi.ContentMateri;
 import ppl.pmotrainingapps.R;
 
+//UNUSED
 public class FullScreenMediaController extends MediaController {
 
     private ImageButton fullScreen;
@@ -50,7 +50,7 @@ public class FullScreenMediaController extends MediaController {
         fullScreen.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(),VideoActivityExample.class);
+                Intent intent = new Intent(getContext(),VideoActivity.class);
 
                 if("y".equals(isFullScreen)){
                     intent.putExtra("fullScreenInd","");
