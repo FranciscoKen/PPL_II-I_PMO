@@ -39,6 +39,7 @@ public class CalendarFragment extends Fragment {
     private Toolbar toolbar;
     CompactCalendarView compactCalendarView;
 
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
     private SimpleDateFormat dateFormatForMonthOnly = new SimpleDateFormat("MM", Locale.getDefault());
     private SimpleDateFormat dateFormatForYearOnly = new SimpleDateFormat("yyyy", Locale.getDefault());
@@ -178,17 +179,20 @@ public class CalendarFragment extends Fragment {
                 while(i.hasNext()){
                     JSONObject JDate = (JSONObject) i.next();
                     String temp_date = JDate.get("tgl").toString().split(" ")[0];
-                    Log.d(TAG+" PARSEDDATE_HARIBESAR", temp_date);
+                    Log.d(TAG+" PARSEDATE_HARIBESAR", temp_date);
                     int temp_date_int = Integer.parseInt(temp_date.split("-")[2]);
                     int temp_month_int = Integer.parseInt(temp_date.split("-")[1]);
                     int temp_year_int = Integer.parseInt(temp_date.split("-")[0]);
 //                    currentCalender.setTime(firstDayOfMonth);
                     currentCalender.set(Calendar.YEAR, temp_year_int-1);
                     currentCalender.set(Calendar.MONTH, temp_month_int-1);
-                    currentCalender.set(Calendar.DAY_OF_MONTH, temp_date_int-1);
+                    currentCalender.set(Calendar.DATE, temp_date_int-1);
 //                    currentCalender.add(Calendar.DATE, temp_date_int-1);
                     setToMidnight(currentCalender);
-                    compactCalendarView.addEvent(new Event(Color.argb(255, 130, 0, 114), currentCalender.getTimeInMillis()), true);
+                    long dateInMillis = dateFormat.parse(temp_date).getTime();
+                    Event event = new Event(Color.argb(255, 130, 0, 114), dateInMillis);
+                    Log.d(TAG+" OBJEV_HARIBESAR", event.toString());
+                    compactCalendarView.addEvent(event, true);
                 }
             } catch (Exception e) {
                 // TODO Auto-generated catch block
