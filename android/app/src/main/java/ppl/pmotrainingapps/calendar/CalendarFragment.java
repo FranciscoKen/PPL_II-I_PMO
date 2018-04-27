@@ -137,42 +137,31 @@ public class CalendarFragment extends Fragment {
         }
     }
 
-    private void addThisMonthEvent(CompactCalendarView compactCalendarView,int month){
-        Log.d(TAG,"Add This Month's Event!");
-        currentCalender.setTime(new Date());
-        currentCalender.set(Calendar.DAY_OF_MONTH, 1);
-        Date firstDayOfMonth = currentCalender.getTime();
-
-        if (month > -1) {
+    @SuppressLint("LongLogTag")
+    private void addKegiatan(CompactCalendarView compactCalendarView, int year){
+        if (year > -1) {
             try {
                 Iterator i = hasilEvent.iterator();
                 while(i.hasNext()){
                     JSONObject JDate = (JSONObject) i.next();
-                    String temp_date = (String) JDate.get("DAY(`tanggal_kegiatan`)");
-                    int temp_date_int = Integer.parseInt(temp_date);
-                    Log.d(TAG,"Added object to event: "+temp_date);
-                    currentCalender.setTime(firstDayOfMonth);
-                    Log.d(TAG,"month yg harusnya ga ngebug -> "+month);
-                    currentCalender.set(Calendar.MONTH, month-1);
-                    currentCalender.add(Calendar.DATE, temp_date_int-1);
-                    setToMidnight(currentCalender);
-                    compactCalendarView.addEvent(new Event(Color.argb(255, 0, 253, 0), currentCalender.getTimeInMillis()), true);
+                    String temp_date = (String) JDate.get("tanggal_kegiatan").toString().split(" ")[0];
+                    Log.d(TAG+" PARSEDATE_KEGIATAN", temp_date);
+                    long dateInMillis = dateFormat.parse(temp_date).getTime();
+                    Event event = new Event(Color.argb(255, 0, 253, 0), dateInMillis);
+                    Log.d(TAG+" OBJEV_HARIBESAR", event.toString());
+                    compactCalendarView.addEvent(event, true);
                 }
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         } else {
-            Log.d(TAG,"Value month <=-1");
+            Log.d(TAG+" YEARVAL_EVENT","<=-1");
         }
     }
 
     @SuppressLint("LongLogTag")
     private void addHariBesar(CompactCalendarView compactCalendarView, int year){
-        currentCalender.setTime(new Date());
-//        currentCalender.set(Calendar.DAY_OF_MONTH, 1);
-        Date firstDayOfMonth = currentCalender.getTime();
-
         if (year > -1) {
             try {
                 Iterator i = hasilHariBesar.iterator();
@@ -180,15 +169,6 @@ public class CalendarFragment extends Fragment {
                     JSONObject JDate = (JSONObject) i.next();
                     String temp_date = JDate.get("tgl").toString().split(" ")[0];
                     Log.d(TAG+" PARSEDATE_HARIBESAR", temp_date);
-                    int temp_date_int = Integer.parseInt(temp_date.split("-")[2]);
-                    int temp_month_int = Integer.parseInt(temp_date.split("-")[1]);
-                    int temp_year_int = Integer.parseInt(temp_date.split("-")[0]);
-//                    currentCalender.setTime(firstDayOfMonth);
-                    currentCalender.set(Calendar.YEAR, temp_year_int-1);
-                    currentCalender.set(Calendar.MONTH, temp_month_int-1);
-                    currentCalender.set(Calendar.DATE, temp_date_int-1);
-//                    currentCalender.add(Calendar.DATE, temp_date_int-1);
-                    setToMidnight(currentCalender);
                     long dateInMillis = dateFormat.parse(temp_date).getTime();
                     Event event = new Event(Color.argb(255, 130, 0, 114), dateInMillis);
                     Log.d(TAG+" OBJEV_HARIBESAR", event.toString());
@@ -246,7 +226,7 @@ public class CalendarFragment extends Fragment {
             month = monthToget[0].getMonth();
             year = monthToget[0].getYear();
             try{
-                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllMonthlyTanggalKegiatan.php?month="+month +"&year="+ year);
+                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllTanggalKegiatanTigaTahun.php?year="+ year);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 if(connection.getResponseCode() == 200) {
@@ -285,7 +265,7 @@ public class CalendarFragment extends Fragment {
         protected void onPostExecute(Void result) {
             // get a reference to the activity if it is still there
             CalendarFragment activity = activityReference.get();
-            activity.addThisMonthEvent(activity.compactCalendarView,month);
+            activity.addKegiatan(activity.compactCalendarView,year);
             activity.addHariBesar(activity.compactCalendarView,year);
         }
     }
