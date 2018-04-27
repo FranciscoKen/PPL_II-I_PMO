@@ -2,6 +2,7 @@ package ppl.pmotrainingapps.calendar;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -63,6 +64,8 @@ public class CalendarDetail extends AppCompatActivity {
         num = findViewById(R.id.calendar_detail_num);
         haribesar = findViewById(R.id.calendar_detail_haribesar);
         RecyclerView events = findViewById(R.id.calendar_detail_events);
+
+        haribesar.setTextColor(Color.parseColor("#980000"));
 
         kegiatanList = new ArrayList<>();
         adapter = new CalendarDetailAdapter(kegiatanList);
