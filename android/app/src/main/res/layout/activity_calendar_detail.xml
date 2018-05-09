@@ -13,13 +13,7 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/calendar_detail_num"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/calendardetail_def_agenda_num" />
 
-    <!-- TODO: Bug, warna hari besar ga mau muncul di hape-->
     <TextView
         android:id="@+id/calendar_detail_haribesar"
         android:layout_width="wrap_content"
@@ -27,6 +21,12 @@
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         tools:textColor="#980000" />
+
+    <TextView
+        android:id="@+id/calendar_detail_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/calendardetail_def_agenda_num" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/calendar_detail_events"
