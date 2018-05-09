@@ -1,7 +1,6 @@
 package ppl.pmotrainingapps.berita;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -32,46 +31,18 @@ import ppl.pmotrainingapps.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
-// * {@link BeritaFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link BeritaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class BeritaFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     public static JSONArray berita = null;
-    private RecyclerView recyclerView;
-    private NestedScrollView nestedScrollView;
     private List<AdapterBerita.Berita> beritaList;
     private AdapterBerita adapterBerita;
     private SwipeRefreshLayout mrefreshLayout;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-//    private OnFragmentInteractionListener mListener;
-
     public BeritaFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment BeritaFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static BeritaFragment newInstance(String param1, String param2) {
-        BeritaFragment fragment = new BeritaFragment();
-        return fragment;
     }
 
     @Override
@@ -85,13 +56,13 @@ public class BeritaFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_berita, container, false);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.berita_recycler_view);
-        nestedScrollView = (NestedScrollView) view.findViewById(R.id.berita_nestedscroll);
+        RecyclerView recyclerView = view.findViewById(R.id.berita_recycler_view);
+        NestedScrollView nestedScrollView = view.findViewById(R.id.berita_nestedscroll);
         recyclerView.setFocusable(false);
         nestedScrollView.requestFocus();
         beritaList = new ArrayList<>();
         adapterBerita = new AdapterBerita(getContext(), beritaList);
-        mrefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+        mrefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         mrefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -140,11 +111,6 @@ public class BeritaFragment extends Fragment {
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -168,7 +134,7 @@ public class BeritaFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
 
-    private static class BeritaTask extends AsyncTask<Void, Void, Void> {
+    private class BeritaTask extends AsyncTask<Void, Void, Void> {
 
         private WeakReference<BeritaFragment> activityReference;
 
@@ -178,14 +144,13 @@ public class BeritaFragment extends Fragment {
 
         protected Void doInBackground(Void... urls) {
             try {
-                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllBerita.php");
+                URL url = new URL(getString(R.string.endpointURI) + "getAllBerita.php");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 if (connection.getResponseCode() == 200) {
                     InputStream responseBody = connection.getInputStream();
                     JSONParser jsonParser = new JSONParser();
-                    JSONArray jsonArray = (JSONArray) jsonParser.parse(new InputStreamReader(responseBody, "UTF-8"));
-                    BeritaFragment.berita = jsonArray;
+                    BeritaFragment.berita = (JSONArray) jsonParser.parse(new InputStreamReader(responseBody, "UTF-8"));
 
                 } else {
                     Log.d("test", "connection failed");

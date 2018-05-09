@@ -1,5 +1,6 @@
 package ppl.pmotrainingapps.Pengumuman;
 
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -170,7 +171,7 @@ public class Content extends AppCompatActivity {
         }
 
     }
-    private static class PengumumanTask extends AsyncTask<Void, Void, Void> {
+    private class PengumumanTask extends AsyncTask<Void, Void, Void> {
 
         private WeakReference<Content> activityReference;
 
@@ -180,7 +181,7 @@ public class Content extends AppCompatActivity {
 
         protected Void doInBackground(Void... urls) {
             try {
-                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllPengumuman.php");
+                URL url = new URL(getString(R.string.endpointURI) + "getAllPengumuman.php");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 if (connection.getResponseCode() == 200) {
@@ -204,7 +205,7 @@ public class Content extends AppCompatActivity {
                 activity.setContent();
         }
     }
-    private static class KegiatanTask extends AsyncTask<Void, Void, Void> {
+    private class KegiatanTask extends AsyncTask<Void, Void, Void> {
 
         private WeakReference<Content> activityReference;
 
@@ -214,14 +215,13 @@ public class Content extends AppCompatActivity {
 
         protected Void doInBackground(Void... urls) {
             try {
-                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllKegiatan.php");
+                URL url = new URL(getString(R.string.endpointURI) + "getAllKegiatan.php");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 if (connection.getResponseCode() == 200) {
                     InputStream responseBody = connection.getInputStream();
                     JSONParser jsonParser = new JSONParser();
-                    JSONArray jsonArray = (JSONArray) jsonParser.parse(new InputStreamReader(responseBody, "UTF-8"));
-                    Content.kegiatan = jsonArray;
+                    Content.kegiatan = (JSONArray) jsonParser.parse(new InputStreamReader(responseBody, "UTF-8"));
 
                 } else {
                     Log.d("test", "connection failed");

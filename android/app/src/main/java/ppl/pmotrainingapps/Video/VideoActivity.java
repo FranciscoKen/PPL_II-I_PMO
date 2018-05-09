@@ -21,7 +21,7 @@ public class VideoActivity extends AppCompatActivity{
     private int position = 0;
     private int id_video;
 
-    String videoURL = "http://pplk2a.if.itb.ac.id/ppl/uploads/video/Raft.mp4";
+    String videoURL = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

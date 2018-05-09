@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
-    private static class LoginTask extends AsyncTask<Void, Void, Void> {
+    private class LoginTask extends AsyncTask<Void, Void, Void> {
 
         private WeakReference<LoginActivity> activityReference;
 
@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
 
         protected Void doInBackground(Void... urls) {
             try{
-                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllUser.php");
+                URL url = new URL(getString(R.string.endpointURI) + "getAllUser.php");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 if(connection.getResponseCode() == 200) {

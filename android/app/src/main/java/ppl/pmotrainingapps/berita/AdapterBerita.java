@@ -9,13 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
 import ppl.pmotrainingapps.R;
-import ppl.pmotrainingapps.Pengumuman.Content;
 
 /**
  * Created by Arya Pradipta on 08/04/2018.
@@ -32,7 +32,7 @@ public class AdapterBerita extends RecyclerView.Adapter<AdapterBerita.MyViewHold
         private String tanggal;
         private String image;
 
-        public Berita(int id, String judul, String tanggal, String image) {
+        Berita(int id, String judul, String tanggal, String image) {
             this.id = id;
             this.judul = judul;
             this.tanggal = tanggal;
@@ -63,7 +63,7 @@ public class AdapterBerita extends RecyclerView.Adapter<AdapterBerita.MyViewHold
             this.tanggal = tanggal;
         }
 
-        public String getImage() {
+        String getImage() {
             return image;
         }
 

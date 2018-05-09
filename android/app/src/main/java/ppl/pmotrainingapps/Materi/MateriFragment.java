@@ -138,7 +138,7 @@ public class MateriFragment extends Fragment {
         }
     }
 
-    private static class MateriTask extends AsyncTask<Void, Void, Void> {
+    private class MateriTask extends AsyncTask<Void, Void, Void> {
         private WeakReference<MateriFragment> activityReference;
         MateriTask(MateriFragment context) {
             activityReference = new WeakReference<>(context);
@@ -147,7 +147,7 @@ public class MateriFragment extends Fragment {
         protected Void doInBackground(Void... urls) {
             StringBuilder result = new StringBuilder();
             try {
-                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllMateri.php");
+                URL url = new URL(getString(R.string.endpointURI) + "getAllMateri.php");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 if(connection.getResponseCode() == 200) {
                     InputStream responseBody = new BufferedInputStream(connection.getInputStream());

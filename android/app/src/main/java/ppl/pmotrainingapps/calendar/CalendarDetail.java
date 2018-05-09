@@ -140,7 +140,7 @@ public class CalendarDetail extends AppCompatActivity {
         }
     }
 
-    private static class CalendarDetailTask extends AsyncTask<Void, Void, Void> {
+    private class CalendarDetailTask extends AsyncTask<Void, Void, Void> {
 
         private WeakReference<CalendarDetail> activityReference;
 
@@ -151,7 +151,7 @@ public class CalendarDetail extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getCalendarDetailByDate.php?date=" + dateString);
+                URL url = new URL(getString(R.string.endpointURI) + "getCalendarDetailByDate.php?date=" + dateString);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 if (connection.getResponseCode() == 200) {

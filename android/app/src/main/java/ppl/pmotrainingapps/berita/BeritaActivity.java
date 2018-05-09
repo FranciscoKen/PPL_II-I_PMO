@@ -97,7 +97,7 @@ public class BeritaActivity extends AppCompatActivity {
                     .commit();
         }
     }
-    private static class BeritaTask extends AsyncTask<Void, Void, Void> {
+    private class BeritaTask extends AsyncTask<Void, Void, Void> {
 
         private WeakReference<BeritaActivity> activityReference;
         private int idBerita;
@@ -109,7 +109,7 @@ public class BeritaActivity extends AppCompatActivity {
 
         protected Void doInBackground(Void... urls) {
             try{
-                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getBerita.php?id=" + idBerita);
+                URL url = new URL(getString(R.string.endpointURI) + "getBerita.php?id=" + idBerita);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 if(connection.getResponseCode() == 200) {

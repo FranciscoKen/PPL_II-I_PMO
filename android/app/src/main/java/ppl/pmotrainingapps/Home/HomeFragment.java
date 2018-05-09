@@ -39,9 +39,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import ppl.pmotrainingapps.Login.LoginActivity;
-import ppl.pmotrainingapps.Login.UserGetterService;
-import ppl.pmotrainingapps.Main.MainActivity;
 import ppl.pmotrainingapps.Pengumuman.Pengumuman;
 import ppl.pmotrainingapps.R;
 
@@ -141,7 +138,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
-        Glide.with(getContext()).load(R.drawable.ppl_quotes).into((ImageView) view.findViewById(R.id.quotes_frame));
+        Glide.with(getContext()).load(R.drawable.quotes).into((ImageView) view.findViewById(R.id.quotes_frame));
         prepareQuotes();
         preparePengumuman();
 
@@ -252,7 +249,7 @@ public class HomeFragment extends Fragment {
 
         }
     };
-    private static class PengumumanTask extends AsyncTask<Void, Void, Void> {
+    private class PengumumanTask extends AsyncTask<Void, Void, Void> {
 
         private WeakReference<HomeFragment> activityReference;
 
@@ -262,7 +259,7 @@ public class HomeFragment extends Fragment {
 
         protected Void doInBackground(Void... urls) {
             try {
-                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllPengumuman.php");
+                URL url = new URL(getString(R.string.endpointURI) + "getAllPengumuman.php");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 if (connection.getResponseCode() == 200) {
@@ -286,7 +283,7 @@ public class HomeFragment extends Fragment {
             activity.setPengumuman();
         }
     }
-    private static class QuoteTask extends AsyncTask<Void, Void, Void> {
+    private class QuoteTask extends AsyncTask<Void, Void, Void> {
 
         private WeakReference<HomeFragment> activityReference;
 
@@ -297,7 +294,7 @@ public class HomeFragment extends Fragment {
         protected Void doInBackground(Void... urls) {
             StringBuilder result = new StringBuilder();
             try{
-                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllQuotes.php");
+                URL url = new URL(getString(R.string.endpointURI) + "getAllQuotes.php");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 if(connection.getResponseCode() == 200) {

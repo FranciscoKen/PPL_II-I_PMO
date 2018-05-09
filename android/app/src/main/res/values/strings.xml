@@ -27,4 +27,6 @@
     <string name="sample_topik_materi">Kepemimpinan</string>
     <string name="sampleJudulMateri">Hello my name is dicky</string>
     <string name="sampleKontenMateri">sample konten</string>
+
+    <string name="endpointURI">http://pplk2a.if.itb.ac.id/ppl/</string>
 </resources>

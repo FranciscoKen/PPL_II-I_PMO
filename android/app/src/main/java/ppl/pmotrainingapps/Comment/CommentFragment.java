@@ -162,7 +162,7 @@ public class CommentFragment extends Fragment {
         }
         adapter.notifyDataSetChanged();
     }
-    private static class CommentTask extends AsyncTask<Void, Void, Void> {
+    private class CommentTask extends AsyncTask<Void, Void, Void> {
 
         private WeakReference<CommentFragment> activityReference;
 
@@ -175,9 +175,9 @@ public class CommentFragment extends Fragment {
                 CommentFragment activity = activityReference.get();
                 String url_prefix;
                 if(activity.mJenis.equals(CommentFragment.JENIS_PENGUMUMAN)){
-                    url_prefix = "http://pplk2a.if.itb.ac.id/ppl/getKmtPengumuman.php";
+                    url_prefix = getString(R.string.endpointURI) + "getKmtPengumuman.php";
                 } else if(activity.mJenis.equals(CommentFragment.JENIS_BERITA)){
-                    url_prefix = "http://pplk2a.if.itb.ac.id/ppl/getKmtBerita.php";
+                    url_prefix = getString(R.string.endpointURI) + "getKmtBerita.php";
 
                 } else{
                     return null;
@@ -207,7 +207,7 @@ public class CommentFragment extends Fragment {
             activity.setComment();
         }
     }
-    private static class AddCommentTask extends AsyncTask<String, String, String> {
+    private class AddCommentTask extends AsyncTask<String, String, String> {
 
         private WeakReference<CommentFragment> activityReference;
 
@@ -223,10 +223,10 @@ public class CommentFragment extends Fragment {
                 String postparams;
                 String komentar = params[0];
                 if(activity.mJenis.equals(CommentFragment.JENIS_PENGUMUMAN)){
-                    url_prefix = "http://pplk2a.if.itb.ac.id/ppl/addKmtPengumuman.php";
+                    url_prefix = getString(R.string.endpointURI) + "addKmtPengumuman.php";
                     postparams = "user_id="+activity.mUser_ID+"&komentar="+komentar+"&pengumuman_id="+activity.mID;
                 } else if(activity.mJenis.equals(CommentFragment.JENIS_BERITA)){
-                    url_prefix = "http://pplk2a.if.itb.ac.id/ppl/addKmtBerita.php";
+                    url_prefix = getString(R.string.endpointURI) + "addKmtBerita.php";
                     postparams = "user_id="+activity.mUser_ID+"&komentar="+komentar+"&berita_id="+activity.mID;
                 } else{
                     return null;

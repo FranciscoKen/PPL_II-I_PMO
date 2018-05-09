@@ -210,7 +210,7 @@ public class CalendarFragment extends Fragment {
         new CalendarTask(this).execute(monthToGet);
     }
 
-    private static class CalendarTask extends AsyncTask<RequestedDate, Void, Void> {
+    private class CalendarTask extends AsyncTask<RequestedDate, Void, Void> {
 
         private WeakReference<CalendarFragment> activityReference;
         public int month;
@@ -226,7 +226,7 @@ public class CalendarFragment extends Fragment {
             month = monthToget[0].getMonth();
             year = monthToget[0].getYear();
             try{
-                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllTanggalKegiatanTigaTahun.php?year="+ year);
+                URL url = new URL(getString(R.string.endpointURI) + "getAllTanggalKegiatanTigaTahun.php?year="+ year);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 if(connection.getResponseCode() == 200) {
@@ -244,7 +244,7 @@ public class CalendarFragment extends Fragment {
             }
 
             try{
-                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllTanggalHariBesarTigaTahun.php?year="+year);
+                URL url = new URL(getString(R.string.endpointURI) + "getAllTanggalHariBesarTigaTahun.php?year="+year);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 if(connection.getResponseCode() == 200) {
