@@ -124,8 +124,9 @@ public class BeritaFragment extends Fragment {
                     int id = Integer.parseInt((String) json.get("id"));
                     String judul = (String)json.get("judul");
                     String tanggal = (String)json.get("tgl");
+                    String image = (String)json.get("foto");
 
-                    AdapterBerita.Berita a = new AdapterBerita.Berita(id, judul, tanggal);
+                    AdapterBerita.Berita a = new AdapterBerita.Berita(id, judul, tanggal, image);
                     beritaList.add(a);
 
                 }catch (Exception e) {

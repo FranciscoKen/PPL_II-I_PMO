@@ -7,7 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
@@ -27,11 +30,13 @@ public class AdapterBerita extends RecyclerView.Adapter<AdapterBerita.MyViewHold
         private int id;
         private String judul;
         private String tanggal;
+        private String image;
 
-        public Berita(int id, String judul, String tanggal) {
+        public Berita(int id, String judul, String tanggal, String image) {
             this.id = id;
             this.judul = judul;
             this.tanggal = tanggal;
+            this.image = image;
         }
 
         public int getId() {
@@ -57,20 +62,27 @@ public class AdapterBerita extends RecyclerView.Adapter<AdapterBerita.MyViewHold
         public void setTanggal(String tanggal) {
             this.tanggal = tanggal;
         }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView judul, tanggal;
+        public ImageView image;
 
         public MyViewHolder(View view) {
             super(view);
             judul = (TextView) view.findViewById(R.id.judul);
             tanggal = (TextView) view.findViewById(R.id.tanggal);
+            image = (ImageView) view.findViewById(R.id.imageView);
         }
-
-
     }
-
 
     public AdapterBerita(Context mContext, List<Berita> beritaList) {
         this.mContext = mContext;
@@ -80,7 +92,7 @@ public class AdapterBerita extends RecyclerView.Adapter<AdapterBerita.MyViewHold
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_pengumuman, parent, false);
+                .inflate(R.layout.card_berita, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -91,6 +103,9 @@ public class AdapterBerita extends RecyclerView.Adapter<AdapterBerita.MyViewHold
         final int id = berita.getId();
         holder.judul.setText(berita.getJudul());
         holder.tanggal.setText(berita.getTanggal());
+        RequestOptions options = new RequestOptions();
+        options.centerCrop();
+        Glide.with(mContext).load(berita.getImage()).apply(options).into(holder.image);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 ItemClick(v, berita);

@@ -46,14 +46,6 @@ public class BeritaActivity extends AppCompatActivity {
             berita_id = Integer.parseInt(b.getString("id"));
         }
         new BeritaTask(this, berita_id).execute();
-//        WebView webview = (WebView) findViewById(R.id.berita_webview);
-        String tempdata = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n" +
-                "<?xml encoding=\"utf-8\" ?><html><body><div style=\"text-align:center;\"></div>\n" +
-                "<p>UPT PMO mengadakan kembali Pembekalan ITB Harmoni pada hari Jumat (13/10/2017) di Kampus ITB, Gedung CRCS Jalan Ganesa No. 10 Bandung, dengan pembicara Dr. H.M. Busyro Muqoddas, M.Hum. Acara ini langsung dibuka oleh Rektor ITB Prof.Dr.Ir. Kadarsah Suryadi DEA, dan dihadiri oleh Wakil Rektor Bidang Sumberdaya dan Organisasi ITB, Direktur Sarana dan Prasarana ITB, Direktur dan Wakil Direktur Eksekutif Kampus ITB Jatinangor, Kepala UPT PMO ITB, para Dekan Fakultas/Sekolah dan para tamu undangan.</p>\n" +
-                "<p>Acara dimulai dengan santap siang bersama dan dilanjutkan dengan pembukaan oleh Rektor ITB serta pemaparan materi dari Ketua KPK Periode 2010-2011 (Dr. H.M. Busyro Muqoddas, M.Hum) tentang Demokrasi Politik dan Korupsi di Indonesia.</p>\n" +
-                "<p>Akhir acara ditutup dengan sesi tanya jawab dan dilanjutkan dengan penyerahan cindera mata dari ITB yang diserahkan oleh Wakil Rektor Bidang Organisasi dan Sumberdaya. (dr/pmo)</p>\n" +
-                "</body></html>\n";
-        //        webview.loadData(tempdata, "text/html", null);
         String jsonPic = "[\"http:\\/\\/pmo.itb.ac.id\\/wp-content\\/uploads\\/pembekalan-itb-harmoni-seri-8-1.jpg\",\"http:\\/\\/pmo.itb.ac.id\\/wp-content\\/uploads\\/pembekalan-itb-harmoni-seri-8-2.jpg\"]";
     }
 
