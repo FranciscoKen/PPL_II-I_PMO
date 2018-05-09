@@ -2,6 +2,7 @@ package ppl.pmotrainingapps.calendar;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -32,7 +33,7 @@ import ppl.pmotrainingapps.R;
 public class CalendarDetail extends AppCompatActivity {
 
     public static JSONArray arr_kegiatan = null;
-    public static JSONArray hari_besar = null;
+    public static JSONArray arr_hari_besar = null;
 
     static String dateString;
     private TextView num;
@@ -63,6 +64,8 @@ public class CalendarDetail extends AppCompatActivity {
         num = findViewById(R.id.calendar_detail_num);
         haribesar = findViewById(R.id.calendar_detail_haribesar);
         RecyclerView events = findViewById(R.id.calendar_detail_events);
+
+        haribesar.setTextColor(Color.parseColor("#980000"));
 
         kegiatanList = new ArrayList<>();
         adapter = new CalendarDetailAdapter(kegiatanList);
@@ -107,9 +110,25 @@ public class CalendarDetail extends AppCompatActivity {
     }
 
     public void setHariBesar() {
-        if (hari_besar.size() != 0) {
-            JSONObject json = (JSONObject) hari_besar.get(0);
-            haribesar.setText(json.get("nama").toString());
+        String semuaHariBesar = "";
+        if (arr_hari_besar != null) {
+            Log.d("arr_kegiatan_size", "arr_kegiatan size: " + arr_kegiatan.size());
+            for (int i = 0; i < arr_hari_besar.size(); i++) {
+                String hasilFetch = arr_hari_besar.get(i).toString();
+                Log.d("kegiatan_fetch", "hasilFetch " + i + ": " + hasilFetch);
+                try {
+                    JSONObject json = (JSONObject) new JSONParser().parse(hasilFetch);
+                    int id_haribesar = json.get("id") != null ? Integer.parseInt((String) json.get("id")) : -1;
+                    String nama_haribesar = json.get("nama") != null ? json.get("nama").toString() : "";
+
+                    semuaHariBesar = semuaHariBesar.concat(nama_haribesar+'\n');
+                    Log.d("haribesar_add_status", "Success: " + i);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+            JSONObject json = (JSONObject) arr_hari_besar.get(0);
+            haribesar.setText(semuaHariBesar);
         }
     }
 
@@ -139,7 +158,7 @@ public class CalendarDetail extends AppCompatActivity {
                     InputStream responseBody = connection.getInputStream();
                     JSONParser jsonParser = new JSONParser();
                     JSONArray jsonArray = (JSONArray) jsonParser.parse(new InputStreamReader(responseBody, "UTF-8"));
-                    CalendarDetail.hari_besar = (JSONArray) jsonArray.get(0);
+                    CalendarDetail.arr_hari_besar = (JSONArray) jsonArray.get(0);
                     CalendarDetail.arr_kegiatan = (JSONArray) jsonArray.get(1);
                 }
             } catch (MalformedURLException e) {

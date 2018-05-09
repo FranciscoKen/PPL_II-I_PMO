@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Debug;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -20,33 +18,28 @@ import android.widget.Toast;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
-import org.json.JSONException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
 
-import ppl.pmotrainingapps.Home.HomeFragment;
 import ppl.pmotrainingapps.R;
 
 public class CalendarFragment extends Fragment {
     private Toolbar toolbar;
     CompactCalendarView compactCalendarView;
 
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
     private SimpleDateFormat dateFormatForMonthOnly = new SimpleDateFormat("MM", Locale.getDefault());
     private SimpleDateFormat dateFormatForYearOnly = new SimpleDateFormat("yyyy", Locale.getDefault());
@@ -58,7 +51,7 @@ public class CalendarFragment extends Fragment {
     public static JSONArray hasilEvent = null;
     public static JSONArray hasilHariBesar = null;
 
-    public RequestedDate thisMonthDate;
+    public RequestedDate thisYear;
 
     public CalendarFragment() {
 
@@ -119,15 +112,8 @@ public class CalendarFragment extends Fragment {
     // Adding dummy events in calendar view for April, may, june 2016
     private void addDummyEvents() {
         int temp_this_year = Calendar.getInstance().get(Calendar.YEAR);
-        for(int y = temp_this_year-1;y<=temp_this_year+1;y++){
-            int temp_local_year = y;
-            for(int i = 1;i<=12;i++){
-
-                int temp_local_month = i;
-                thisMonthDate = new RequestedDate(temp_local_month,temp_local_year);
-                prepareCalendar(thisMonthDate);
-            }
-        }
+        thisYear = new RequestedDate(temp_this_year);
+        prepareCalendar(thisYear);
 
         // Refresh calendar to update events
         compactCalendarView.invalidate();
@@ -151,60 +137,49 @@ public class CalendarFragment extends Fragment {
         }
     }
 
-    private void addThisMonthEvent(CompactCalendarView compactCalendarView,int month){
-        Log.d(TAG,"Add This Month's Event!");
-        currentCalender.setTime(new Date());
-        currentCalender.set(Calendar.DAY_OF_MONTH, 1);
-        Date firstDayOfMonth = currentCalender.getTime();
-
-        if (month > -1) {
+    @SuppressLint("LongLogTag")
+    private void addKegiatan(CompactCalendarView compactCalendarView, int year){
+        if (year > -1) {
             try {
                 Iterator i = hasilEvent.iterator();
                 while(i.hasNext()){
                     JSONObject JDate = (JSONObject) i.next();
-                    String temp_date = (String) JDate.get("DAY(`tanggal_kegiatan`)");
-                    int temp_date_int = Integer.parseInt(temp_date);
-                    Log.d(TAG,"Added object to event: "+temp_date);
-                    currentCalender.setTime(firstDayOfMonth);
-                    Log.d(TAG,"month yg harusnya ga ngebug -> "+month);
-                    currentCalender.set(Calendar.MONTH, month-1);
-                    currentCalender.add(Calendar.DATE, temp_date_int-1);
-                    setToMidnight(currentCalender);
-                    compactCalendarView.addEvent(new Event(Color.argb(255, 0, 253, 0), currentCalender.getTimeInMillis()), true);
+                    String temp_date = (String) JDate.get("tanggal_kegiatan").toString().split(" ")[0];
+                    Log.d(TAG+" PARSEDATE_KEGIATAN", temp_date);
+                    long dateInMillis = dateFormat.parse(temp_date).getTime();
+                    Event event = new Event(Color.argb(255, 0, 253, 0), dateInMillis);
+                    Log.d(TAG+" OBJEV_HARIBESAR", event.toString());
+                    compactCalendarView.addEvent(event, true);
                 }
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         } else {
-            Log.d(TAG,"Value month <=-1");
+            Log.d(TAG+" YEARVAL_EVENT","<=-1");
         }
     }
 
-    private void addThisMonthHariBesar(CompactCalendarView compactCalendarView,int month){
-        currentCalender.setTime(new Date());
-        currentCalender.set(Calendar.DAY_OF_MONTH, 1);
-        Date firstDayOfMonth = currentCalender.getTime();
-
-        if (month > -1) {
+    @SuppressLint("LongLogTag")
+    private void addHariBesar(CompactCalendarView compactCalendarView, int year){
+        if (year > -1) {
             try {
                 Iterator i = hasilHariBesar.iterator();
                 while(i.hasNext()){
                     JSONObject JDate = (JSONObject) i.next();
-                    String temp_date = (String) JDate.get("DAY(`tgl`)");
-                    int temp_date_int = Integer.parseInt(temp_date);
-                    currentCalender.setTime(firstDayOfMonth);
-                    currentCalender.set(Calendar.MONTH, month-1);
-                    currentCalender.add(Calendar.DATE, temp_date_int-1);
-                    setToMidnight(currentCalender);
-                    compactCalendarView.addEvent(new Event(Color.argb(255, 130, 0, 114), currentCalender.getTimeInMillis()), true);
+                    String temp_date = JDate.get("tgl").toString().split(" ")[0];
+                    Log.d(TAG+" PARSEDATE_HARIBESAR", temp_date);
+                    long dateInMillis = dateFormat.parse(temp_date).getTime();
+                    Event event = new Event(Color.argb(255, 130, 0, 114), dateInMillis);
+                    Log.d(TAG+" OBJEV_HARIBESAR", event.toString());
+                    compactCalendarView.addEvent(event, true);
                 }
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         } else {
-            Log.d(TAG,"Value month <=-1");
+            Log.d(TAG+" YEARVAL_HARIBESAR","<=-1");
         }
     }
 
@@ -245,12 +220,13 @@ public class CalendarFragment extends Fragment {
             activityReference = new WeakReference<>(context);
         }
 
+        @SuppressLint("LongLogTag")
         protected Void doInBackground(RequestedDate... monthToget) {
             StringBuilder result = new StringBuilder();
             month = monthToget[0].getMonth();
             year = monthToget[0].getYear();
             try{
-                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllMonthlyTanggalKegiatan.php?month="+month +"&year="+ year);
+                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllTanggalKegiatanTigaTahun.php?year="+ year);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 if(connection.getResponseCode() == 200) {
@@ -258,17 +234,17 @@ public class CalendarFragment extends Fragment {
                     JSONParser jsonParser = new JSONParser();
                     org.json.simple.JSONArray jsonArray = (org.json.simple.JSONArray) jsonParser.parse(new InputStreamReader(responseBody, "UTF-8"));
                     CalendarFragment.hasilEvent = jsonArray;
-                    Log.d(TAG,"ini hasil jsonArray:" +jsonArray.toString());
+                    Log.d(TAG+" JSONRESULT_EVENT",jsonArray.toString());
 
                 }else{
-                    Log.d("test", "connection failed");
+                    Log.d(TAG+" CONN_EVENT", "failed");
                 }
             }catch(Exception e){
                 e.printStackTrace();
             }
 
             try{
-                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllMonthlyTanggalHariBesar.php?month="+month +"&year="+ year);
+                URL url = new URL("http://pplk2a.if.itb.ac.id/ppl/getAllTanggalHariBesarTigaTahun.php?year="+year);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 if(connection.getResponseCode() == 200) {
@@ -276,9 +252,9 @@ public class CalendarFragment extends Fragment {
                     JSONParser jsonParser = new JSONParser();
                     org.json.simple.JSONArray jsonArray = (org.json.simple.JSONArray) jsonParser.parse(new InputStreamReader(responseBody, "UTF-8"));
                     CalendarFragment.hasilHariBesar = jsonArray;
-
+                    Log.d(TAG+" JSONRESULT_HARIBESAR", jsonArray.toString());
                 }else{
-                    Log.d("test", "connection failed");
+                    Log.d(TAG+" CONN_HARIBESAR", "failed");
                 }
             }catch(Exception e){
                 e.printStackTrace();
@@ -289,8 +265,8 @@ public class CalendarFragment extends Fragment {
         protected void onPostExecute(Void result) {
             // get a reference to the activity if it is still there
             CalendarFragment activity = activityReference.get();
-            activity.addThisMonthEvent(activity.compactCalendarView,month);
-            activity.addThisMonthHariBesar(activity.compactCalendarView,month);
+            activity.addKegiatan(activity.compactCalendarView,year);
+            activity.addHariBesar(activity.compactCalendarView,year);
         }
     }
 
@@ -305,6 +281,11 @@ public class CalendarFragment extends Fragment {
 
         RequestedDate(int _month, int _year) {
             this.month = _month;
+            this.year = _year;
+        }
+
+        RequestedDate(int _year) {
+            this.month = -1;
             this.year = _year;
         }
 

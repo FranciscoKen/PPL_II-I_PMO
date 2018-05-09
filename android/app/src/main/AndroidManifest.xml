@@ -52,7 +52,6 @@
             android:name=".Home.QuoteGetterService"
             android:exported="false" />
 
-        <activity android:name=".calendar.EventActivity" />
         <activity android:name=".PDF.PDFActivityExample" />
         <activity android:name=".PDF.PDFViewer"
             android:exported="false" />
