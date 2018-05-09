@@ -26,9 +26,13 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         // Set the text for each tab.
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_label1));
+        tabLayout.getTabAt(0).setIcon(R.drawable.white_home_icon);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_label2));
+        tabLayout.getTabAt(1).setIcon(R.drawable.white_news_icon);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_label3));
+        tabLayout.getTabAt(2).setIcon(R.drawable.white_calendar_icon);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_label4));
+        tabLayout.getTabAt(3).setIcon(R.drawable.white_materi_icon);
 
         // Set the tabs to fill the entire layout.
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
