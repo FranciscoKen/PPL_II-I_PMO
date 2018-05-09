@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp">
 
@@ -19,37 +19,37 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/iconPengumuman"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="6dp"
-                android:layout_height="40dp"
-                android:layout_width="30dp"
-                android:src="@drawable/announcement" />
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                card_view:srcCompat="@drawable/dummy_berita" />
 
             <TextView
                 android:id="@+id/judul"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:paddingLeft="40dp"
+                android:layout_below="@id/imageView"
+                android:paddingLeft="30dp"
                 android:paddingRight="30dp"
-                android:textColor="@color/colorText"
                 android:paddingTop="10dp"
-                android:textSize="20sp"
                 android:text="Pelatihan Presentasi"
-                android:fontFamily="sans-serif-medium" />
+                android:textColor="@color/colorText"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tanggal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/judul"
-                android:paddingLeft="40dp"
+                android:paddingLeft="30dp"
                 android:paddingRight="30dp"
                 android:paddingBottom="10dp"
-                android:textSize="13sp"
-                android:textColor="#a6a6a6"
-                android:text="Minggu, 3 Maret 2018" />
+                android:textSize="15sp"
+                android:textColor="@color/colorGray"
+                android:text="Minggu, 3 Maret 2018"/>
+
 
 
         </RelativeLayout>

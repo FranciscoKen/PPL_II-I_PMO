@@ -127,7 +127,10 @@ public class CalendarDetail extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-            JSONObject json = (JSONObject) arr_hari_besar.get(0);
+            if(arr_hari_besar.size()>0){
+                JSONObject json = (JSONObject) arr_hari_besar.get(0);
+            }
+
             haribesar.setText(semuaHariBesar);
         }
     }
