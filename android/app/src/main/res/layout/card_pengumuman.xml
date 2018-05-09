@@ -21,6 +21,7 @@
             <ImageView
                 android:id="@+id/iconPengumuman"
                 android:layout_marginTop="10dp"
+                android:layout_marginLeft="6dp"
                 android:layout_height="40dp"
                 android:layout_width="30dp"
                 android:src="@drawable/announcement" />
@@ -30,24 +31,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:paddingLeft="30dp"
+                android:paddingLeft="40dp"
                 android:paddingRight="30dp"
                 android:textColor="@color/colorText"
                 android:paddingTop="10dp"
                 android:textSize="20sp"
-                android:text="Pelatihan Presentasi"/>
+                android:text="Pelatihan Presentasi"
+                android:fontFamily="sans-serif-medium" />
 
             <TextView
                 android:id="@+id/tanggal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/judul"
-                android:paddingLeft="30dp"
+                android:paddingLeft="40dp"
                 android:paddingRight="30dp"
                 android:paddingBottom="10dp"
                 android:textSize="13sp"
                 android:textColor="#a6a6a6"
-                android:text="Minggu, 3 Maret 2018"/>
+                android:text="Minggu, 3 Maret 2018" />
 
 
         </RelativeLayout>
